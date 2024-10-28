@@ -10,6 +10,9 @@ module.exports = (app) => {
   publicRouter.use('/tasklists', app.routes.tasklists);
   publicRouter.use('/tasks', app.routes.tasks);
   publicRouter.use('/taskcomments', app.routes.taskcomments);
+  publicRouter.use('/chatmessages', app.routes.chatmessages);
+  publicRouter.use('/notifications', app.routes.notifications);
+  publicRouter.use('/productivitymetrics', app.routes.productivitymetrics);
 
   app.use('/auth', app.routes.auths);
 

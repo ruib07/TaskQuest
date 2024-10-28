@@ -1,7 +1,7 @@
 const ValidationError = require('../errors/validationError');
 
 module.exports = (app) => {
-  const findAll = () => app.db('project_members');
+  const findAll = (filter = {}) => app.db('project_members').where(filter);
 
   const save = (registerProjectMember) => {
     if (!registerProjectMember.project_id) throw new ValidationError('Project ID is required!');

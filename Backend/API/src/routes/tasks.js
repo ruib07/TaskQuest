@@ -3,7 +3,7 @@ const express = require('express');
 module.exports = (app) => {
   const router = express.Router();
 
-  router.get('/', (req, res, next) => {
+  router.get('/:task_list_id', (req, res, next) => {
     app.services.task.findAll({ task_list_id: req.params.task_list_id })
       .then((result) => res.status(200).json(result))
       .catch((error) => next(error));
