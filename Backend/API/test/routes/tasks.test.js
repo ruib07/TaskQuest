@@ -8,7 +8,7 @@ const secret = 'userTaskQuest@202425';
 
 const generateUniqueEmail = () => `${uuid.v4()}@gmail.com`;
 
-let token;
+let user;
 let project;
 let taskList;
 
@@ -21,14 +21,14 @@ beforeAll(async () => {
     password: 'Rui@Barreto-123',
   });
 
-  token = { ...userRegistration[0] };
-  token.token = jwt.encode(token, secret);
+  user = { ...userRegistration[0] };
+  user.token = jwt.encode(user, secret);
 
   const projectRegistration = await app.services.project.save({
     name: 'TaskQuest',
     description: 'A web app capable of managing all the projects of an company',
     deadline: '2024-10-28',
-    created_by: token.id,
+    created_by: user.id,
   });
 
   project = { ...projectRegistration[0] };
@@ -46,12 +46,12 @@ test('Test #35 - Get tasks by task list ID', () => app.db('tasks')
     title: 'Login Implementation',
     description: 'Implement login functionality',
     task_list_id: taskList.id,
-    assigned_to: token.id,
+    assigned_to: user.id,
     status: 'Pending',
     due_date: '2024-11-05',
   }, ['task_list_id'])
   .then((taskRes) => request(app).get(`${route}/${taskRes[0].task_list_id}`)
-    .set('Authorization', `bearer ${token.token}`))
+    .set('Authorization', `bearer ${user.token}`))
   .then((res) => {
     expect(res.status).toBe(200);
   }));
@@ -61,24 +61,24 @@ test('Test #36 - Get a task by ID', () => app.db('tasks')
     title: 'Login Implementation',
     description: 'Implement login functionality',
     task_list_id: taskList.id,
-    assigned_to: token.id,
+    assigned_to: user.id,
     status: 'Pending',
     due_date: '2024-11-05',
   }, ['id'])
   .then((taskRes) => request(app).get(`${route}/${taskRes[0].id}`)
-    .set('Authorization', `bearer ${token.token}`))
+    .set('Authorization', `bearer ${user.token}`))
   .then((res) => {
     expect(res.status).toBe(200);
   }));
 
 test('Test #37 - Insert a new task', async () => {
   await request(app).post(route)
-    .set('Authorization', `bearer ${token.token}`)
+    .set('Authorization', `bearer ${user.token}`)
     .send({
       title: 'Login Implementation',
       description: 'Implement login functionality',
       task_list_id: taskList.id,
-      assigned_to: token.id,
+      assigned_to: user.id,
       status: 'Pending',
       due_date: '2024-11-05',
     })
@@ -89,12 +89,12 @@ test('Test #37 - Insert a new task', async () => {
 
 describe('Task creation validation', () => {
   const testTemplate = (newData, errorMessage) => request(app).post(route)
-    .set('Authorization', `bearer ${token.token}`)
+    .set('Authorization', `bearer ${user.token}`)
     .send({
       title: 'Login Implementation',
       description: 'Implement login functionality',
       task_list_id: taskList.id,
-      assigned_to: token.id,
+      assigned_to: user.id,
       status: 'Pending',
       due_date: '2024-11-05',
       ...newData,
@@ -117,17 +117,17 @@ test('Test #44 - Updating a task data', () => app.db('tasks')
     title: 'Login Implementation',
     description: 'Implement login functionality',
     task_list_id: taskList.id,
-    assigned_to: token.id,
+    assigned_to: user.id,
     status: 'Pending',
     due_date: '2024-11-05',
   }, ['id'])
   .then((taskRes) => request(app).put(`${route}/${taskRes[0].id}`)
-    .set('Authorization', `bearer ${token.token}`)
+    .set('Authorization', `bearer ${user.token}`)
     .send({
       title: 'Performance Upgrade',
       description: 'Upgrade the code to optimize performance',
       task_list_id: taskList.id,
-      assigned_to: token.id,
+      assigned_to: user.id,
       status: 'In Progress',
       due_date: '2024-11-20',
     }))
@@ -140,12 +140,13 @@ test('Test #45 - Deleting an task', async () => {
     title: 'Login Implementation',
     description: 'Implement login functionality',
     task_list_id: taskList.id,
-    assigned_to: token.id,
+    assigned_to: user.id,
     status: 'Pending',
     due_date: '2024-11-05',
   }, ['id']);
 
   const res = await request(app).delete(`${route}/${task[0].id}`)
-    .set('Authorization', `bearer ${token.token}`);
+    .set('Authorization', `bearer ${user.token}`);
+
   expect(res.status).toBe(204);
 });

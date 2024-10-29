@@ -8,7 +8,7 @@ const secret = 'userTaskQuest@202425';
 
 const generateUniqueEmail = () => `${uuid.v4()}@gmail.com`;
 
-let token;
+let user;
 
 beforeAll(async () => {
   const userEmail = generateUniqueEmail();
@@ -19,12 +19,12 @@ beforeAll(async () => {
     password: 'Rui@Barreto-123',
   });
 
-  token = { ...userRegistration[0] };
-  token.token = jwt.encode(token, secret);
+  user = { ...userRegistration[0] };
+  user.token = jwt.encode(user, secret);
 });
 
 test('Test #1 - Get all users', () => request(app).get(route)
-  .set('Authorization', `bearer ${token.token}`)
+  .set('Authorization', `bearer ${user.token}`)
   .then((res) => {
     expect(res.status).toBe(200);
   }));
@@ -39,7 +39,7 @@ test('Test #2 - Get user by his ID', () => {
       password: 'Rui@Barreto-123',
     }, ['id'])
     .then((userRes) => request(app).get(`${route}/${userRes[0].id}`)
-      .set('Authorization', `bearer ${token.token}`))
+      .set('Authorization', `bearer ${user.token}`))
     .then((res) => {
       expect(res.status).toBe(200);
     });
@@ -105,7 +105,7 @@ test('Test #7 - Updating user data', () => {
       password: 'Rui@Barreto-123',
     }, ['id'])
     .then((userRes) => request(app).put(`${route}/${userRes[0].id}`)
-      .set('Authorization', `bearer ${token.token}`)
+      .set('Authorization', `bearer ${user.token}`)
       .send({
         name: 'Mariana Oliveira',
         email: userEmail,
@@ -116,21 +116,18 @@ test('Test #7 - Updating user data', () => {
     });
 });
 
-test('Test #8 - Deleting an user', () => {
+test('Test #8 - Deleting an user', async () => {
   const userEmail = generateUniqueEmail();
 
-  return app.db('users')
+  const userDel = await app.db('users')
     .insert({
       name: 'Rui Barreto',
       email: userEmail,
       password: 'Rui@Barreto-123',
-    }, ['id'])
-    .then((userRes) => request(app).delete(`${route}/${userRes[0].id}`)
-      .set('Authorization', `bearer ${token.token}`)
-      .send({
-        name: 'User Deleted',
-      }))
-    .then((res) => {
-      expect(res.status).toBe(204);
-    });
+    }, ['id']);
+
+  const res = await request(app).delete(`${route}/${userDel[0].id}`)
+    .set('Authorization', `bearer ${user.token}`);
+
+  expect(res.status).toBe(204);
 });

@@ -8,7 +8,7 @@ const secret = 'userTaskQuest@202425';
 
 const generateUniqueEmail = () => `${uuid.v4()}@gmail.com`;
 
-let token;
+let user;
 
 beforeAll(async () => {
   const userEmail = generateUniqueEmail();
@@ -19,8 +19,8 @@ beforeAll(async () => {
     password: 'Rui@Barreto-123',
   });
 
-  token = { ...userRegistration[0] };
-  token.token = jwt.encode(token, secret);
+  user = { ...userRegistration[0] };
+  user.token = jwt.encode(user, secret);
 });
 
 test('Test #13 - Get all projects created by a user', () => app.db('projects')
@@ -28,10 +28,10 @@ test('Test #13 - Get all projects created by a user', () => app.db('projects')
     name: 'TaskQuest',
     description: 'A web app capable of managing all the projects of an company',
     deadline: '2024-10-28',
-    created_by: token.id,
+    created_by: user.id,
   }, ['created_by'])
   .then((projectRes) => request(app).get(`${route}/${projectRes[0].created_by}`)
-    .set('Authorization', `bearer ${token.token}`))
+    .set('Authorization', `bearer ${user.token}`))
   .then((res) => {
     expect(res.status).toBe(200);
   }));
@@ -41,22 +41,22 @@ test('Test #14 - Get a project by his ID', () => app.db('projects')
     name: 'TaskQuest',
     description: 'A web app capable of managing all the projects of an company',
     deadline: '2024-10-28',
-    created_by: token.id,
+    created_by: user.id,
   }, ['id'])
   .then((projectRes) => request(app).get(`${route}/${projectRes[0].id}`)
-    .set('Authorization', `bearer ${token.token}`))
+    .set('Authorization', `bearer ${user.token}`))
   .then((res) => {
     expect(res.status).toBe(200);
   }));
 
 test('Test #15 - Creating a project', async () => {
   await request(app).post(route)
-    .set('Authorization', `bearer ${token.token}`)
+    .set('Authorization', `bearer ${user.token}`)
     .send({
       name: 'TaskQuest',
       description: 'A web app capable of managing all the projects of an company',
       deadline: '2024-10-28',
-      created_by: token.id,
+      created_by: user.id,
     })
     .then((res) => {
       expect(res.status).toBe(201);
@@ -65,12 +65,12 @@ test('Test #15 - Creating a project', async () => {
 
 describe('Project creation validation', () => {
   const testTemplate = (newData, errorMessage) => request(app).post(route)
-    .set('Authorization', `bearer ${token.token}`)
+    .set('Authorization', `bearer ${user.token}`)
     .send({
       name: 'TaskQuest',
       description: 'A web app capable of managing all the projects of an company',
       deadline: '2024-10-28',
-      created_by: token.id,
+      created_by: user.id,
       ...newData,
     })
     .then((res) => {
@@ -89,32 +89,31 @@ test('Test #20 - Updating project data', () => app.db('projects')
     name: 'TaskQuest',
     description: 'A web app capable of managing all the projects of an company',
     deadline: '2024-10-28',
-    created_by: token.id,
+    created_by: user.id,
   }, ['id'])
   .then((projectRes) => request(app).put(`${route}/${projectRes[0].id}`)
-    .set('Authorization', `bearer ${token.token}`)
+    .set('Authorization', `bearer ${user.token}`)
     .send({
       name: 'Planify',
       description: 'A web app capable of managing events',
       deadline: '2024-10-23',
-      created_by: token.id,
+      created_by: user.id,
     }))
   .then((res) => {
     expect(res.status).toBe(200);
   }));
 
-test('Test #21 - Deleting an project', () => app.db('projects')
-  .insert({
-    name: 'TaskQuest',
-    description: 'A web app capable of managing all the projects of an company',
-    deadline: '2024-10-28',
-    created_by: token.id,
-  }, ['id'])
-  .then((projectRes) => request(app).delete(`${route}/${projectRes[0].id}`)
-    .set('Authorization', `bearer ${token.token}`)
-    .send({
-      name: 'Project Deleted',
-    }))
-  .then((res) => {
-    expect(res.status).toBe(204);
-  }));
+test('Test #21 - Deleting an project', async () => {
+  const project = await app.db('projects')
+    .insert({
+      name: 'TaskQuest',
+      description: 'A web app capable of managing all the projects of an company',
+      deadline: '2024-10-28',
+      created_by: user.id,
+    }, ['id']);
+
+  const res = await request(app).delete(`${route}/${project[0].id}`)
+    .set('Authorization', `bearer ${user.token}`);
+
+  expect(res.status).toBe(204);
+});

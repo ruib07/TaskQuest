@@ -8,7 +8,7 @@ const secret = 'userTaskQuest@202425';
 
 const generateUniqueEmail = () => `${uuid.v4()}@gmail.com`;
 
-let token;
+let user;
 let project;
 
 beforeAll(async () => {
@@ -20,14 +20,14 @@ beforeAll(async () => {
     password: 'Rui@Barreto-123',
   });
 
-  token = { ...userRegistration[0] };
-  token.token = jwt.encode(token, secret);
+  user = { ...userRegistration[0] };
+  user.token = jwt.encode(user, secret);
 
   const projectRegistration = await app.services.project.save({
     name: 'TaskQuest',
     description: 'A web app capable of managing all the projects of an company',
     deadline: '2024-10-28',
-    created_by: token.id,
+    created_by: user.id,
   });
 
   project = { ...projectRegistration[0] };
@@ -39,14 +39,14 @@ test('Test #29 - Get task lists by project ID', () => app.db('task_lists')
     name: 'Coding',
   }, ['project_id'])
   .then((taskListRes) => request(app).get(`${route}/${taskListRes[0].project_id}`)
-    .set('Authorization', `bearer ${token.token}`))
+    .set('Authorization', `bearer ${user.token}`))
   .then((res) => {
     expect(res.status).toBe(200);
   }));
 
 test('Test #30 - Insert a new task list', async () => {
   await request(app).post(route)
-    .set('Authorization', `bearer ${token.token}`)
+    .set('Authorization', `bearer ${user.token}`)
     .send({
       project_id: project.id,
       name: 'Coding',
@@ -58,7 +58,7 @@ test('Test #30 - Insert a new task list', async () => {
 
 describe('Task List creation validation', () => {
   const testTemplate = (newData, errorMessage) => request(app).post(route)
-    .set('Authorization', `bearer ${token.token}`)
+    .set('Authorization', `bearer ${user.token}`)
     .send({
       project_id: project.id,
       name: 'Coding',
@@ -79,7 +79,7 @@ test('Test #33 - Updating a task list data', () => app.db('task_lists')
     name: 'Coding',
   }, ['id'])
   .then((taskListRes) => request(app).put(`${route}/${taskListRes[0].id}`)
-    .set('Authorization', `bearer ${token.token}`)
+    .set('Authorization', `bearer ${user.token}`)
     .send({
       project_id: project.id,
       name: 'Unit Tests',
@@ -95,6 +95,7 @@ test('Test #34 - Deleting an task list', async () => {
   }, ['id']);
 
   const res = await request(app).delete(`${route}/${taskList[0].id}`)
-    .set('Authorization', `bearer ${token.token}`);
+    .set('Authorization', `bearer ${user.token}`);
+
   expect(res.status).toBe(204);
 });
