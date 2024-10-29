@@ -23,7 +23,7 @@ module.exports = (app) => {
 
   router.put('/:id', (req, res, next) => {
     app.services.task.update(req.params.id, req.body)
-      .then((result) => res.status(201).json(result))
+      .then((result) => res.status(200).json(result))
       .catch((error) => next(error));
   });
 
