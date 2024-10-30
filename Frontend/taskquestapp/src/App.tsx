@@ -15,6 +15,7 @@ function App() {
         <ToastContainer />
         <Routes>
           <Route path="/" element={<HomeComponent />} />
+          <Route path="/Dashboard" element={<HomeComponent />} />
           <Route
             path="/Authentication/Registration"
             element={<RegistrationComponent />}

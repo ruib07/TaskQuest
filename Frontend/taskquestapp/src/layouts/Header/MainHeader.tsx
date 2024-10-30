@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Disclosure,
   DisclosureButton,
@@ -9,11 +9,12 @@ import {
   MenuItems,
 } from "@headlessui/react";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import Icon from "../../assets/TaskQuestLogo.png";
 import { useNavigate } from "react-router-dom";
 import { GetUserService } from "../../services/getuserservice";
 
 const navigation = [
-  { name: "Dashboard", href: "#", current: true },
+  { name: "Dashboard", href: "/Dashboard", current: true },
   { name: "Team", href: "#", current: false },
   { name: "Projects", href: "#", current: false },
   { name: "Calendar", href: "#", current: false },
@@ -73,11 +74,7 @@ export default function MainHeader() {
           </div>
           <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
             <div className="flex flex-shrink-0 items-center">
-              <img
-                alt="Your Company"
-                src="https://tailwindui.com/plus/img/logos/mark.svg?color=indigo&shade=500"
-                className="h-8 w-auto"
-              />
+              <img alt="TaskQuest" src={Icon} className="h-9 w-auto" />
             </div>
             <div className="hidden sm:ml-6 sm:block">
               <div className="flex space-x-4">
@@ -161,7 +158,7 @@ export default function MainHeader() {
                 >
                   <MenuItem>
                     <a
-                      href="/login"
+                      href="/Authentication/Login"
                       className="block px-4 py-2 text-sm text-gray-700"
                     >
                       Login
@@ -169,7 +166,7 @@ export default function MainHeader() {
                   </MenuItem>
                   <MenuItem>
                     <a
-                      href="/register"
+                      href="/Authentication/Registration"
                       className="block px-4 py-2 text-sm text-gray-700"
                     >
                       Registration

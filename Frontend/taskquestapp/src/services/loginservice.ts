@@ -9,7 +9,6 @@ export const loginUserService = async (login: UserLogin) => {
     );
     return response.data;
   } catch (error) {
-    console.log(error);
     throw new Error("Failed to login!");
   }
 };

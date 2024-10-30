@@ -23,7 +23,7 @@ beforeAll(async () => {
   user.token = jwt.encode(user, secret);
 });
 
-test('Test #57 - Get all notifications by user ID', () => app.db('notifications')
+test('Test #58 - Get all notifications by user ID', () => app.db('notifications')
   .insert({
     user_id: user.id,
     content: 'New task for you: Implement login functionality',
@@ -35,7 +35,7 @@ test('Test #57 - Get all notifications by user ID', () => app.db('notifications'
     expect(res.status).toBe(200);
   }));
 
-test('Test #58 - Updating notification data', () => app.db('notifications')
+test('Test #59 - Updating notification data', () => app.db('notifications')
   .insert({
     user_id: user.id,
     content: 'New task for you: Implement login functionality',
@@ -52,7 +52,7 @@ test('Test #58 - Updating notification data', () => app.db('notifications')
     expect(res.status).toBe(200);
   }));
 
-test('Test #59 - Deleting an notification', async () => {
+test('Test #60 - Deleting an notification', async () => {
   const notification = await app.db('notifications')
     .insert({
       user_id: user.id,

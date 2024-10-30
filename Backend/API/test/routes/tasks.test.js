@@ -56,7 +56,22 @@ test('Test #35 - Get tasks by task list ID', () => app.db('tasks')
     expect(res.status).toBe(200);
   }));
 
-test('Test #36 - Get a task by ID', () => app.db('tasks')
+test('Test #36 - Get tasks by user ID', () => app.db('tasks')
+  .insert({
+    title: 'Login Implementation',
+    description: 'Implement login functionality',
+    task_list_id: taskList.id,
+    assigned_to: user.id,
+    status: 'Pending',
+    due_date: '2024-11-05',
+  }, ['assigned_to'])
+  .then((taskRes) => request(app).get(`${route}/user/${taskRes[0].assigned_to}`)
+    .set('Authorization', `bearer ${user.token}`))
+  .then((res) => {
+    expect(res.status).toBe(200);
+  }));
+
+test('Test #37 - Get a task by ID', () => app.db('tasks')
   .insert({
     title: 'Login Implementation',
     description: 'Implement login functionality',
@@ -71,7 +86,7 @@ test('Test #36 - Get a task by ID', () => app.db('tasks')
     expect(res.status).toBe(200);
   }));
 
-test('Test #37 - Insert a new task', async () => {
+test('Test #38 - Insert a new task', async () => {
   await request(app).post(route)
     .set('Authorization', `bearer ${user.token}`)
     .send({
@@ -104,15 +119,15 @@ describe('Task creation validation', () => {
       expect(res.body.error).toBe(errorMessage);
     });
 
-  test('Test #38 - Insert a task without a title', () => testTemplate({ title: null }, 'Title is required!'));
-  test('Test #39 - Insert a task without a description', () => testTemplate({ description: null }, 'Description is required!'));
-  test('Test #40 - Insert a task without a task list ID', () => testTemplate({ task_list_id: null }, 'Task List ID is required!'));
-  test('Test #41 - Insert a task without a user assigned ID', () => testTemplate({ assigned_to: null }, 'User ID who the task was assigned is required!'));
-  test('Test #42 - Insert a task without a status', () => testTemplate({ status: null }, 'Status is required!'));
-  test('Test #43 - Insert a task without a due date', () => testTemplate({ due_date: null }, 'Due date is required!'));
+  test('Test #39 - Insert a task without a title', () => testTemplate({ title: null }, 'Title is required!'));
+  test('Test #40 - Insert a task without a description', () => testTemplate({ description: null }, 'Description is required!'));
+  test('Test #41 - Insert a task without a task list ID', () => testTemplate({ task_list_id: null }, 'Task List ID is required!'));
+  test('Test #42 - Insert a task without a user assigned ID', () => testTemplate({ assigned_to: null }, 'User ID who the task was assigned is required!'));
+  test('Test #43 - Insert a task without a status', () => testTemplate({ status: null }, 'Status is required!'));
+  test('Test #44 - Insert a task without a due date', () => testTemplate({ due_date: null }, 'Due date is required!'));
 });
 
-test('Test #44 - Updating a task data', () => app.db('tasks')
+test('Test #45 - Updating a task data', () => app.db('tasks')
   .insert({
     title: 'Login Implementation',
     description: 'Implement login functionality',
@@ -135,7 +150,7 @@ test('Test #44 - Updating a task data', () => app.db('tasks')
     expect(res.status).toBe(200);
   }));
 
-test('Test #45 - Deleting an task', async () => {
+test('Test #46 - Deleting an task', async () => {
   const task = await app.db('tasks').insert({
     title: 'Login Implementation',
     description: 'Implement login functionality',

@@ -33,7 +33,7 @@ beforeAll(async () => {
   project = { ...projectRegistration[0] };
 });
 
-test('Test #52 - Get all chat messages by project ID', () => app.db('chat_messages')
+test('Test #53 - Get all chat messages by project ID', () => app.db('chat_messages')
   .insert({
     project_id: project.id,
     sender_id: user.id,
@@ -45,7 +45,7 @@ test('Test #52 - Get all chat messages by project ID', () => app.db('chat_messag
     expect(res.status).toBe(200);
   }));
 
-test('Test #53 - Insert a new chat message', async () => {
+test('Test #54 - Insert a new chat message', async () => {
   await request(app).post(route)
     .set('Authorization', `bearer ${user.token}`)
     .send({
@@ -72,7 +72,7 @@ describe('Chat Message creation validation', () => {
       expect(res.body.error).toBe(errorMessage);
     });
 
-  test('Test #54 - Insert a chat message without a project ID', () => testTemplate({ project_id: null }, 'Project ID is required!'));
-  test('Test #55 - Insert a chat message without a sender ID', () => testTemplate({ sender_id: null }, 'Sender ID is required!'));
-  test('Test #56 - Insert a chat message withou a content', () => testTemplate({ content: null }, 'Content is required!'));
+  test('Test #55 - Insert a chat message without a project ID', () => testTemplate({ project_id: null }, 'Project ID is required!'));
+  test('Test #56 - Insert a chat message without a sender ID', () => testTemplate({ sender_id: null }, 'Sender ID is required!'));
+  test('Test #57 - Insert a chat message withou a content', () => testTemplate({ content: null }, 'Content is required!'));
 });
