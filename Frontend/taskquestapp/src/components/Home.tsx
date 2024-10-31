@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import MainHeader from "../layouts/Header/MainHeader";
-import { GetUserService } from "../services/getuserservice";
-import { GetTasksByUser } from "../services/gettasksbyuser";
+import { GetUserService } from "../services/userbyid-service";
+import { GetTasksByUser } from "../services/tasksbyuser-service";
 import { Task } from "../types/task";
 
 function HomeComponent() {

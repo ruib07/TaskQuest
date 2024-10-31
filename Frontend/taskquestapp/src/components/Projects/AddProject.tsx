@@ -1,21 +1,19 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { toast } from "react-toastify";
+import { Project } from "../../types/project";
+import { AddProjectService } from "../../services/addproject-service";
 import Img from "../../assets/TaskQuestLogo.png";
-import { UserRegistration } from "../../types/userRegistration";
-import { registerUserService } from "../../services/registration-service";
+import MainHeader from "../../layouts/Header/MainHeader";
 
-function RegistrationComponent() {
+function AddProjectComponent() {
   const [name, setName] = useState<string>("");
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
-  const [visible, setVisible] = useState<boolean>(true);
+  const [description, setDescription] = useState<string>("");
+  const [deadline, setDeadline] = useState<string>("");
   const navigate = useNavigate();
 
   const showSuccess = () => {
-    toast.success("Registration completed successfully!", {
+    toast.success("Project created successfully!", {
       position: "bottom-right",
       autoClose: 5000,
       closeOnClick: true,
@@ -24,7 +22,7 @@ function RegistrationComponent() {
   };
 
   const showError = () => {
-    toast.error("Registration was not completed!", {
+    toast.error("Project was not created!", {
       position: "bottom-right",
       autoClose: 5000,
       closeOnClick: true,
@@ -35,36 +33,42 @@ function RegistrationComponent() {
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const newUser: UserRegistration = {
+    const userId = localStorage.getItem("id");
+
+    if (!userId) {
+      showError();
+      return;
+    }
+
+    const newProject: Project = {
       name,
-      email,
-      password,
+      description,
+      deadline,
+      created_by: userId,
     };
 
     try {
-      await registerUserService(newUser);
+      await AddProjectService(newProject);
       showSuccess();
 
       setName("");
-      setEmail("");
-      setPassword("");
-      navigate("/Authentication/Login");
+      setDescription("");
+      setDeadline("");
+      navigate("/Projects");
     } catch (error) {
       showError();
     }
   };
-
-  const togglePasswordVisibility = () => {
-    setVisible(!visible);
-  };
-
   return (
     <>
+      <MainHeader />
+      <br />
+      <br />
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <img alt="TaskQuest" src={Img} className="mx-auto h-20 w-auto" />
           <h2 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-gray-900">
-            Create Account
+            Create a Project
           </h2>
         </div>
 
@@ -90,18 +94,18 @@ function RegistrationComponent() {
 
             <div>
               <label className="block text-sm/6 font-medium text-gray-900">
-                Email address
+                Description
               </label>
               <div className="mt-2">
-                <input
-                  type="email"
-                  id="Email"
-                  name="Email"
+                <textarea
+                  id="Description"
+                  name="Description"
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6"
-                  placeholder="Email"
+                  placeholder="Description"
                   required
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
+                  rows={5}
                 />
               </div>
             </div>
@@ -109,29 +113,22 @@ function RegistrationComponent() {
             <div>
               <div className="flex items-center justify-between">
                 <label className="block text-sm/6 font-medium text-gray-900">
-                  Password
+                  Deadline
                 </label>
                 <div className="text-sm"></div>
               </div>
 
               <div className="mt-2 relative">
                 <input
-                  type={visible ? "password" : "text"}
-                  id="Password"
-                  name="Password"
+                  type="date"
+                  id="Deadline"
+                  name="Deadline"
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6 pr-10"
-                  placeholder="Password"
+                  placeholder="Deadline"
                   required
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
+                  value={deadline}
+                  onChange={(e) => setDeadline(e.target.value)}
                 />
-
-                <span
-                  className="absolute inset-y-0 right-0 flex items-center pr-3 cursor-pointer"
-                  onClick={togglePasswordVisibility}
-                >
-                  <FontAwesomeIcon icon={visible ? faEye : faEyeSlash} />
-                </span>
               </div>
             </div>
 
@@ -140,7 +137,7 @@ function RegistrationComponent() {
                 type="submit"
                 className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
-                Sign up
+                Create Project
               </button>
             </div>
           </form>
@@ -150,4 +147,4 @@ function RegistrationComponent() {
   );
 }
 
-export default RegistrationComponent;
+export default AddProjectComponent;

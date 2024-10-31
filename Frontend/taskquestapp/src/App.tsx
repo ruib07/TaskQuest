@@ -7,6 +7,8 @@ import RegistrationComponent from "./components/Auth/UserRegistration";
 import LoginComponent from "./components/Auth/UserLogin";
 import HomeComponent from "./components/Home";
 import NotFoundPage from "./components/404";
+import ProjectsComponent from "./components/Projects/Projects";
+import AddProjectComponent from "./components/Projects/AddProject";
 
 function App() {
   return (
@@ -21,6 +23,8 @@ function App() {
             element={<RegistrationComponent />}
           />
           <Route path="/Authentication/Login" element={<LoginComponent />} />
+          <Route path="/Projects" element={<ProjectsComponent />} />
+          <Route path="/AddProject" element={<AddProjectComponent />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </div>
