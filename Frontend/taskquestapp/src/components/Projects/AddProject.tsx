@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { Project } from "../../types/project";
-import { AddProjectService } from "../../services/addproject-service";
+import { AddProjectService } from "../../services/addProject";
 import Img from "../../assets/TaskQuestLogo.png";
 import MainHeader from "../../layouts/Header/MainHeader";
+import { NewProject } from "../../types/newProject";
 
 function AddProjectComponent() {
   const [name, setName] = useState<string>("");
@@ -40,7 +40,7 @@ function AddProjectComponent() {
       return;
     }
 
-    const newProject: Project = {
+    const newProject: NewProject = {
       name,
       description,
       deadline,

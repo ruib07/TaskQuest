@@ -4,8 +4,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { toast } from "react-toastify";
 import Img from "../../assets/TaskQuestLogo.png";
-import { UserLogin } from "../../types/userLogin";
-import { loginUserService } from "../../services/login-service";
+import { UserLogin } from "../../types/login";
+import { loginUserService } from "../../services/userLogin";
 
 function LoginComponent() {
   const [email, setEmail] = useState<string>("");

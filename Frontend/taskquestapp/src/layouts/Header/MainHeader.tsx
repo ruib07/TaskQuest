@@ -11,7 +11,7 @@ import {
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import Icon from "../../assets/TaskQuestLogo.png";
 import { useNavigate, useLocation } from "react-router-dom";
-import { GetUserService } from "../../services/userbyid-service";
+import { GetUserService } from "../../services/getUserById";
 
 const navigation = [
   { name: "Dashboard", href: "/Dashboard", current: true },

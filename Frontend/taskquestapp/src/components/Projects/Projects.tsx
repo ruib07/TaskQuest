@@ -1,18 +1,20 @@
 import { useEffect, useState } from "react";
-import { GetProjectsByUser } from "../../services/projectsbyuser-service";
+import { GetProjectsByUser } from "../../services/getProjectsByUser";
 import { Project } from "../../types/project";
 import MainHeader from "../../layouts/Header/MainHeader";
 import ProjectsSideNav from "../../layouts/SideNavbar/ProjectsSideNav";
+import { useNavigate } from "react-router-dom";
 
-function ProjectsComponent() {
+export default function ProjectsComponent() {
   const [projects, setProjects] = useState<Project[]>([]);
   const [error, setError] = useState<string | null>(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchProjects = async () => {
       try {
         const response = await GetProjectsByUser();
-        setProjects(response.data);
+        setProjects(response?.data);
       } catch (error) {
         setError("Failed to load projects");
         console.error(error);
@@ -21,6 +23,10 @@ function ProjectsComponent() {
 
     fetchProjects();
   }, []);
+
+  const handleProjectClick = (projectId: string) => {
+    navigate(`/Project/${encodeURIComponent(projectId)}`);
+  };
 
   return (
     <>
@@ -37,6 +43,7 @@ function ProjectsComponent() {
             {projects.map((project, index) => (
               <div
                 key={index}
+                onClick={() => handleProjectClick(project.id!)}
                 className="max-w-sm rounded overflow-hidden shadow-lg cursor-pointer bg-white"
               >
                 <img
@@ -62,5 +69,3 @@ function ProjectsComponent() {
     </>
   );
 }
-
-export default ProjectsComponent;

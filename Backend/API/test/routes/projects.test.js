@@ -43,7 +43,7 @@ test('Test #14 - Get a project by his ID', () => app.db('projects')
     deadline: '2024-10-28',
     created_by: user.id,
   }, ['id'])
-  .then((projectRes) => request(app).get(`${route}/${projectRes[0].id}`)
+  .then((projectRes) => request(app).get(`${route}/byId/${projectRes[0].id}`)
     .set('Authorization', `bearer ${user.token}`))
   .then((res) => {
     expect(res.status).toBe(200);

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { UserLogin } from "../types/userLogin";
+import { UserLogin } from "../types/login";
 
 export const loginUserService = async (login: UserLogin) => {
   try {

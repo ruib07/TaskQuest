@@ -4,8 +4,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { toast } from "react-toastify";
 import Img from "../../assets/TaskQuestLogo.png";
-import { UserRegistration } from "../../types/userRegistration";
-import { registerUserService } from "../../services/registration-service";
+import { UserRegistration } from "../../types/registration";
+import { registerUserService } from "../../services/userRegistration";
 
 function RegistrationComponent() {
   const [name, setName] = useState<string>("");

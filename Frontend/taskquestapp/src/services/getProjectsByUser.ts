@@ -1,8 +1,8 @@
 import axios from "axios";
-import { Project } from "../types/project";
 
-export const AddProjectService = async (newProject: Project) => {
+export const GetProjectsByUser = () => {
   const token = localStorage.getItem("token");
+  const userId = localStorage.getItem("id");
 
   if (token) {
     try {
@@ -11,16 +11,15 @@ export const AddProjectService = async (newProject: Project) => {
         Authorization: `bearer ${token}`,
       };
 
-      const response = await axios.post(
-        "http://localhost:3005/v1/projects",
-        newProject,
+      const response = axios.get(
+        `http://localhost:3005/v1/projects/${userId}`,
         {
           headers: headers,
         }
       );
-      return response.data;
+      return response;
     } catch (error) {
-      throw new Error("Failed to create a new project!");
+      throw new Error("Failed to get user data!");
     }
   }
 };
