@@ -12,6 +12,7 @@ import AddProjectComponent from "./components/Projects/AddProject";
 import ProjectDetails from "./components/Projects/ProjectDetails";
 import TeamComponent from "./components/Team";
 import ScrollToTop from "./hooks/ScrollToTop";
+import TaskCategories from "./components/Tasks/TaskCategories";
 
 export default function App() {
   return (
@@ -31,6 +32,10 @@ export default function App() {
           <Route path="/Projects" element={<ProjectsComponent />} />
           <Route path="/Project/:projectId" element={<ProjectDetails />} />
           <Route path="/AddProject" element={<AddProjectComponent />} />
+          <Route
+            path="/TaskCategories/:projectId"
+            element={<TaskCategories />}
+          />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </div>

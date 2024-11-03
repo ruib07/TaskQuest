@@ -56,21 +56,21 @@ export default function ProjectDetails() {
             <div className="flex justify-center space-x-4 mt-6">
               <button
                 className="bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-500 transition duration-200"
-                onClick={() => navigate("/Projects")}
-              >
-                Back to Projects List
-              </button>
-              <button
-                className="bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-500 transition duration-200"
-                onClick={() => navigate("/Projects")}
+                onClick={() => navigate("/AddProjectMembers")}
               >
                 Add Project Members
               </button>
               <button
                 className="bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-500 transition duration-200"
-                onClick={() => navigate("/Projects")}
+                onClick={() => navigate(`/TaskCategories/${projectId}`)}
               >
-                Add Tasks
+                See all Tasks Categories
+              </button>
+              <button
+                className="bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-500 transition duration-200"
+                onClick={() => navigate("/AddTaskCategory")}
+              >
+                Add Task Category
               </button>
             </div>
           </div>

@@ -17,7 +17,6 @@ export default function ProjectsComponent() {
         setProjects(response?.data);
       } catch (error) {
         setError("Failed to load projects");
-        console.error(error);
       }
     };
 
@@ -35,7 +34,7 @@ export default function ProjectsComponent() {
       <br />
       <div className="flex">
         <ProjectsSideNav />
-        <div className="flex-1 ml-64 p-8 overflow-y-auto bg-gray-100 min-h-screen">
+        <div className="flex-1 ml-64 p-8 overflow-y-auto min-h-screen">
           <h1 className="text-3xl font-bold mb-6 text-center">Your Projects</h1>
           {error && <p className="text-red-500 text-center mb-6">{error}</p>}
 
