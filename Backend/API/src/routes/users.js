@@ -15,12 +15,6 @@ module.exports = (app) => {
       .catch((error) => next(error));
   });
 
-  router.post('/', (req, res, next) => {
-    app.services.user.save(req.body)
-      .then((result) => res.status(201).json(result))
-      .catch((error) => next(error));
-  });
-
   router.put('/:id', (req, res, next) => {
     app.services.user.update(req.params.id, req.body)
       .then((result) => res.status(200).json(result[0]))

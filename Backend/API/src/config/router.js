@@ -6,8 +6,9 @@ module.exports = (app) => {
 
   app.use('/auth', app.routes.auths);
 
-  publicRouter.use('/users', app.routes.users);
+  publicRouter.use('/userRegistrations', app.routes.userRegistrations);
 
+  secureRouter.use('/users', app.routes.users);
   secureRouter.use('/projects', app.routes.projects);
   secureRouter.use('/projectmembers', app.routes.projectmembers);
   secureRouter.use('/tasklists', app.routes.tasklists);

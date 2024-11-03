@@ -2,8 +2,6 @@ const bcrypt = require('bcrypt-nodejs');
 const ValidationError = require('../errors/validationError');
 
 module.exports = (app) => {
-  const findAll = () => app.db('users');
-
   const find = (filter = {}) => app.db('users').where(filter).first();
 
   const getPasswordHash = (pass) => {
@@ -21,25 +19,23 @@ module.exports = (app) => {
     return hasLowercase && hasUppercase && hasDigit && hasSpecialChar && isLengthValid;
   };
 
-  const update = async (id, userRes) => {
-    if (!validatePassword(userRes.password)) throw new ValidationError('Password doesnt meet the requirements!');
+  const save = async (registerUser) => {
+    if (!registerUser.name) throw new ValidationError('Name is required!');
+    if (!registerUser.email) throw new ValidationError('Email is required!');
+    if (!registerUser.password) throw new ValidationError('Password is required!');
 
-    const newUserInfo = { ...userRes };
-    newUserInfo.password = getPasswordHash(userRes.password);
+    if (!validatePassword(registerUser.password)) throw new ValidationError('Password doesnt meet the requirements!');
 
-    return app.db('users')
-      .where({ id })
-      .update(newUserInfo, '*');
+    const registerUserEmail = await find({ email: registerUser.email });
+    if (registerUserEmail) throw new ValidationError('Email already exists!');
+
+    const newUser = { ...registerUser };
+    newUser.password = getPasswordHash(registerUser.password);
+
+    return app.db('users').insert(newUser, '*');
   };
 
-  const remove = (id) => app.db('users')
-    .where({ id })
-    .del();
-
   return {
-    findAll,
-    find,
-    update,
-    remove,
+    save,
   };
 };

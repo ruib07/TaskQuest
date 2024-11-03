@@ -11,7 +11,7 @@ const generateUniqueEmail = () => `${uuid.v4()}@gmail.com`;
 test('Test #9 - Receiving token when a user authenticates', () => {
   const userEmail = generateUniqueEmail();
 
-  return app.services.user.save({
+  return app.services.userRegistration.save({
     name: 'Rui Auth',
     email: userEmail,
     password: 'Rui@Barreto-123',
@@ -30,7 +30,7 @@ test('Test #9 - Receiving token when a user authenticates', () => {
 test('Test #10 - Wrong authentication attempt for users', () => {
   const userEmail = generateUniqueEmail();
 
-  return app.services.user.save({
+  return app.services.userRegistration.save({
     name: 'Rui Auth',
     email: userEmail,
     password: 'Rui@Barreto-123',

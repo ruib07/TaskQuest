@@ -10,12 +10,9 @@ function HomeComponent() {
 
   useEffect(() => {
     const fetchUserData = async () => {
-      const token = localStorage.getItem("token");
-      if (!token) return;
-
       try {
         const response = await GetUserService();
-        const { name } = response.data;
+        const { name } = response?.data;
         setUserData({ name });
 
         const tasksResponse = await GetTasksByUser();

@@ -12,13 +12,7 @@ import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import Icon from "../../assets/TaskQuestLogo.png";
 import { useNavigate, useLocation } from "react-router-dom";
 import { GetUserService } from "../../services/getUserById";
-
-const navigation = [
-  { name: "Dashboard", href: "/Dashboard", current: true },
-  { name: "Team", href: "#", current: false },
-  { name: "Projects", href: "/Projects", current: false },
-  { name: "Calendar", href: "#", current: false },
-];
+import { navigation } from "../../data/navigation";
 
 function classNames(...classes: any) {
   return classes.filter(Boolean).join(" ");
@@ -33,12 +27,9 @@ export default function MainHeader() {
 
   useEffect(() => {
     const fetchUserData = async () => {
-      const token = localStorage.getItem("token");
-      if (!token) return;
-
       try {
         const response = await GetUserService();
-        const { name } = response.data;
+        const { name } = response?.data;
         setUserData({ name });
       } catch (error) {
         console.error("Failed to load user data:", error);
@@ -79,23 +70,33 @@ export default function MainHeader() {
             </div>
             <div className="hidden sm:ml-6 sm:block">
               <div className="flex space-x-4">
-                {navigation.map((item) => (
-                  <a
-                    key={item.name}
-                    href={item.href}
-                    aria-current={
-                      location.pathname === item.href ? "page" : undefined
-                    }
-                    className={classNames(
-                      location.pathname === item.href
-                        ? "bg-gray-900 text-white"
-                        : "text-gray-300 hover:bg-gray-700 hover:text-white",
-                      "rounded-md px-3 py-2 text-sm font-medium"
-                    )}
-                  >
-                    {item.name}
-                  </a>
-                ))}
+                {navigation.map((item) => {
+                  const isDashboard = item.name === "Dashboard";
+                  const isAccessible = isDashboard || userData;
+
+                  return (
+                    <a
+                      key={item.name}
+                      href={isAccessible ? item.href : "#"}
+                      aria-current={
+                        location.pathname === item.href ? "page" : undefined
+                      }
+                      className={classNames(
+                        location.pathname === item.href
+                          ? "bg-gray-900 text-white"
+                          : isAccessible
+                          ? "text-gray-300 hover:bg-gray-700 hover:text-white"
+                          : "text-gray-300 cursor-not-allowed",
+                        "rounded-md px-3 py-2 text-sm font-medium"
+                      )}
+                      onClick={(e) => {
+                        if (!isAccessible) e.preventDefault();
+                      }}
+                    >
+                      {item.name}
+                    </a>
+                  );
+                })}
               </div>
             </div>
           </div>

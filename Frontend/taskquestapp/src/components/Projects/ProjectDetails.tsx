@@ -40,7 +40,7 @@ export default function ProjectDetails() {
           <img
             src="https://cdn.pixabay.com/photo/2021/08/05/12/36/software-development-6523979_1280.jpg"
             alt={project.name}
-            className="w-full h-auto object-cover"
+            className="w-full h-min object-cover"
           />
           <div className="p-6">
             <h2 className="text-2xl font-bold text-blue-600 mb-4">
@@ -53,12 +53,26 @@ export default function ProjectDetails() {
               <strong>Deadline:</strong>{" "}
               {new Date(project.deadline).toLocaleDateString()}
             </p>
-            <button
-              className="bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-500 transition duration-200"
-              onClick={() => navigate("/Projects")}
-            >
-              Back to Projects List
-            </button>
+            <div className="flex justify-center space-x-4 mt-6">
+              <button
+                className="bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-500 transition duration-200"
+                onClick={() => navigate("/Projects")}
+              >
+                Back to Projects List
+              </button>
+              <button
+                className="bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-500 transition duration-200"
+                onClick={() => navigate("/Projects")}
+              >
+                Add Project Members
+              </button>
+              <button
+                className="bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-500 transition duration-200"
+                onClick={() => navigate("/Projects")}
+              >
+                Add Tasks
+              </button>
+            </div>
           </div>
         </div>
       </div>

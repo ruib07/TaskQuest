@@ -15,7 +15,7 @@ let taskList;
 beforeAll(async () => {
   const userEmail = generateUniqueEmail();
 
-  const userRegistration = await app.services.user.save({
+  const userRegistration = await app.services.userRegistration.save({
     name: 'Rui Barreto',
     email: userEmail,
     password: 'Rui@Barreto-123',

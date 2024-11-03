@@ -1,8 +1,7 @@
 import axios from "axios";
 
-export const GetUserService = () => {
+export const GetAllUsersService = () => {
   const token = localStorage.getItem("token");
-  const userId = localStorage.getItem("id");
 
   if (token) {
     try {
@@ -11,12 +10,12 @@ export const GetUserService = () => {
         Authorization: `bearer ${token}`,
       };
 
-      const response = axios.get(`http://localhost:3005/v1/users/${userId}`, {
+      const response = axios.get("http://localhost:3005/v1/users", {
         headers: headers,
       });
       return response;
     } catch (error) {
-      throw new Error("Failed to get user data!");
+      throw new Error("Failed to retrive users!");
     }
   }
 };
