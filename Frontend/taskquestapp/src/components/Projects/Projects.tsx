@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { GetProjectsByUser } from "../../services/Projects/getProjectsByUser";
-import { Project } from "../../types/project";
+import { Project } from "../../types/Projects/project";
 import MainHeader from "../../layouts/Header/MainHeader";
 import { useNavigate } from "react-router-dom";
 import ProjectsMiniNav from "../../layouts/ProjectsNav/ProjectsMiniNav";

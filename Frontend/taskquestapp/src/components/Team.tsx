@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { GetAllUsersService } from "../services/Users/getAllUsers";
-import { User } from "../types/user";
+import { User } from "../types/Users/user";
 import MainHeader from "../layouts/Header/MainHeader";
 import { useNavigate } from "react-router-dom";
 

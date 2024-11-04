@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import MainHeader from "../layouts/Header/MainHeader";
 import { GetUserService } from "../services/Users/getUserById";
 import { GetTasksByUserIdService } from "../services/Tasks/getTasksByUserId";
-import { Task } from "../types/task";
+import { Task } from "../types/Tasks/task";
 
 export default function HomeComponent() {
   const [userData, setUserData] = useState<{ name: string } | null>(null);

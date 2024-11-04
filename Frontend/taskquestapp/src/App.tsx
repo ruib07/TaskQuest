@@ -15,6 +15,7 @@ import TaskCategories from "./components/Tasks/TaskCategories";
 import TasksByTaskList from "./components/Tasks/TasksByTaskCategory";
 import TasksByUser from "./components/Tasks/TasksByUser";
 import Footer from "./layouts/Footer/Footer";
+import AddTaskCategoryComponent from "./components/Tasks/AddTaskCategory";
 
 export default function App() {
   return (
@@ -42,6 +43,10 @@ export default function App() {
             />
             <Route path="/Tasks/:taskListId" element={<TasksByTaskList />} />
             <Route path="/Tasks/byUser" element={<TasksByUser />} />
+            <Route
+              path="/AddTaskCategory/:projectId"
+              element={<AddTaskCategoryComponent />}
+            />
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </div>

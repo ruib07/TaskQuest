@@ -1,5 +1,5 @@
 import axios from "axios";
-import { UserRegistration } from "../../types/registration";
+import { UserRegistration } from "../../types/Auth/registration";
 
 export const UserRegistrationService = async (newUser: UserRegistration) => {
   try {

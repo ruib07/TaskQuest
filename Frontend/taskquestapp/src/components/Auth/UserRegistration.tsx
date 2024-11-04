@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { toast } from "react-toastify";
 import Img from "../../assets/TaskQuestLogo.png";
-import { UserRegistration } from "../../types/registration";
+import { UserRegistration } from "../../types/Auth/registration";
 import { UserRegistrationService } from "../../services/Auth/userRegistration";
 
 export default function RegistrationComponent() {

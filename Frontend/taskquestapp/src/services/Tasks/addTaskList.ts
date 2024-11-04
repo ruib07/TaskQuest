@@ -1,7 +1,7 @@
 import axios from "axios";
-import { NewProject } from "../../types/Projects/newProject";
+import { NewTaskList } from "../../types/Tasks/newTaskList";
 
-export const AddProjectService = async (newProject: NewProject) => {
+export const AddTaskListService = async (newTaskList: NewTaskList) => {
   const token = localStorage.getItem("token");
 
   if (token) {
@@ -12,15 +12,16 @@ export const AddProjectService = async (newProject: NewProject) => {
       };
 
       const response = await axios.post(
-        "http://localhost:3005/v1/projects",
-        newProject,
+        "http://localhost:3005/v1/tasklists",
+        newTaskList,
         {
           headers: headers,
         }
       );
-      return response.data;
+
+      return response;
     } catch (error) {
-      throw new Error("Failed to create a new project!");
+      throw new Error("Failed to add a new task category!");
     }
   }
 };

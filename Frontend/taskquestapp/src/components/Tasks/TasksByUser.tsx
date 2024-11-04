@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Task } from "../../types/task";
+import { Task } from "../../types/Tasks/task";
 import MainHeader from "../../layouts/Header/MainHeader";
 import { GetTasksByUserIdService } from "../../services/Tasks/getTasksByUserId";
 
