@@ -1,7 +1,6 @@
 import axios from "axios";
 
-export const GetTasksByUser = () => {
-  const userId = localStorage.getItem("id");
+export const GetTasksByTaskListIdService = (taskListId: string) => {
   const token = localStorage.getItem("token");
 
   if (token) {
@@ -12,14 +11,15 @@ export const GetTasksByUser = () => {
       };
 
       const response = axios.get(
-        `http://localhost:3005/v1/tasks/user/${userId}`,
+        `http://localhost:3005/v1/tasks/${taskListId}`,
         {
           headers: headers,
         }
       );
+
       return response;
     } catch (error) {
-      throw new Error("Failed to get user data!");
+      throw new Error("Failed to retrieve tasks by task list ID!");
     }
   }
 };

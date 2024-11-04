@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { GetAllUsersService } from "../services/getAllUsers";
+import { GetAllUsersService } from "../services/Users/getAllUsers";
 import { User } from "../types/user";
 import MainHeader from "../layouts/Header/MainHeader";
 import { useNavigate } from "react-router-dom";
@@ -39,7 +39,7 @@ export default function TeamComponent() {
             users.map((user) => (
               <div
                 key={user.id}
-                className="flex items-center bg-white p-4 rounded-lg shadow-md hover:shadow-lg transition duration-200"
+                className="flex items-center bg-white p-4 rounded-lg shadow-md hover:shadow-lg transform transition duration-300 hover:scale-105 hover:shadow-2xl border border-gray-200 cursor-pointer"
               >
                 <img
                   src="https://pngimg.com/d/anonymous_mask_PNG28.png"

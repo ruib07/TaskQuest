@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import MainHeader from "../layouts/Header/MainHeader";
-import { GetUserService } from "../services/getUserById";
-import { GetTasksByUser } from "../services/getTasksByUser";
+import { GetUserService } from "../services/Users/getUserById";
+import { GetTasksByUserIdService } from "../services/Tasks/getTasksByUserId";
 import { Task } from "../types/task";
 
-function HomeComponent() {
+export default function HomeComponent() {
   const [userData, setUserData] = useState<{ name: string } | null>(null);
   const [tasks, setTasks] = useState<Task[]>([]);
 
@@ -15,7 +15,7 @@ function HomeComponent() {
         const { name } = response?.data;
         setUserData({ name });
 
-        const tasksResponse = await GetTasksByUser();
+        const tasksResponse = await GetTasksByUserIdService();
         setTasks(tasksResponse?.data);
       } catch (error) {
         console.error("Failed to load user data:", error);
@@ -182,5 +182,3 @@ function HomeComponent() {
     </>
   );
 }
-
-export default HomeComponent;

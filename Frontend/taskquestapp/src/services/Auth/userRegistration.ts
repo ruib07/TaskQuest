@@ -1,7 +1,7 @@
 import axios from "axios";
-import { UserRegistration } from "../types/registration";
+import { UserRegistration } from "../../types/registration";
 
-export const registerUserService = async (newUser: UserRegistration) => {
+export const UserRegistrationService = async (newUser: UserRegistration) => {
   try {
     await axios.post("http://localhost:3005/auth/signup", newUser);
   } catch (error) {

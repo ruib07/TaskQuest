@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { AddProjectService } from "../../services/addProject";
+import { AddProjectService } from "../../services/Projects/addProject";
 import Img from "../../assets/TaskQuestLogo.png";
 import MainHeader from "../../layouts/Header/MainHeader";
 import { NewProject } from "../../types/newProject";
 
-function AddProjectComponent() {
+export default function AddProjectComponent() {
   const [name, setName] = useState<string>("");
   const [description, setDescription] = useState<string>("");
   const [deadline, setDeadline] = useState<string>("");
@@ -146,5 +146,3 @@ function AddProjectComponent() {
     </>
   );
 }
-
-export default AddProjectComponent;

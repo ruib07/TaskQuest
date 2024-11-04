@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { GetProjectById } from "../../services/getProjectById";
+import { GetProjectById } from "../../services/Projects/getProjectById";
 import { Project } from "../../types/project";
 import MainHeader from "../../layouts/Header/MainHeader";
 
@@ -71,6 +71,12 @@ export default function ProjectDetails() {
                 onClick={() => navigate("/AddTaskCategory")}
               >
                 Add Task Category
+              </button>
+              <button
+                className="bg-red-600 text-white py-2 px-4 rounded-md hover:bg-red-500 transition duration-200"
+                onClick={() => navigate(`/DeleteProject/${project.id}`)}
+              >
+                Delete Project
               </button>
             </div>
           </div>

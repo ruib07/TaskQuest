@@ -1,7 +1,7 @@
 import axios from "axios";
-import { UserLogin } from "../types/login";
+import { UserLogin } from "../../types/login";
 
-export const loginUserService = async (login: UserLogin) => {
+export const UserLoginService = async (login: UserLogin) => {
   try {
     const response = await axios.post(
       "http://localhost:3005/auth/signin",

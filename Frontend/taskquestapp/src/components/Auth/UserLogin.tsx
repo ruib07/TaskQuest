@@ -5,9 +5,9 @@ import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { toast } from "react-toastify";
 import Img from "../../assets/TaskQuestLogo.png";
 import { UserLogin } from "../../types/login";
-import { loginUserService } from "../../services/userLogin";
+import { UserLoginService } from "../../services/Auth/userLogin";
 
-function LoginComponent() {
+export default function LoginComponent() {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [visible, setVisible] = useState<boolean>(true);
@@ -40,7 +40,7 @@ function LoginComponent() {
     };
 
     try {
-      const res = await loginUserService(login);
+      const res = await UserLoginService(login);
       console.log(res);
       const token = res.token;
       const userid = res.user.id;
@@ -143,5 +143,3 @@ function LoginComponent() {
     </>
   );
 }
-
-export default LoginComponent;

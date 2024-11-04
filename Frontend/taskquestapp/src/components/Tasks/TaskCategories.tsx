@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { GetTaskListsByProjectIdService } from "../../services/getTaskListsByProjectId";
+import { GetTaskListsByProjectIdService } from "../../services/Tasks/getTaskListsByProjectId";
 import { TaskList } from "../../types/taskList";
 import MainHeader from "../../layouts/Header/MainHeader";
-import { GetProjectById } from "../../services/getProjectById";
+import { GetProjectById } from "../../services/Projects/getProjectById";
 import { Project } from "../../types/project";
 
 export default function TaskCategories() {
@@ -43,13 +43,13 @@ export default function TaskCategories() {
 
         {taskLists.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {taskLists.map((task) => (
+            {taskLists.map((taskList) => (
               <div
-                key={task.id}
-                className="bg-white shadow-lg rounded-xl p-6 transform transition duration-300 hover:scale-105 hover:shadow-2xl border border-gray-200 text-center"
+                key={taskList.id}
+                className="bg-white shadow-lg rounded-xl p-6 transform transition duration-300 hover:scale-105 hover:shadow-2xl border border-gray-200 text-center cursor-pointer"
               >
                 <h3 className="text-2xl font-semibold text-blue-600 mb-4">
-                  {task.name}
+                  {taskList.name}
                 </h3>
                 <p className="text-gray-500 mb-6">
                   Task list for project: {project?.name}
@@ -57,7 +57,11 @@ export default function TaskCategories() {
                 <div className="flex space-x-4 justify-center">
                   <button
                     className="bg-blue-600 text-white py-2 px-4 rounded-lg font-medium hover:bg-blue-500 transition duration-200"
-                    onClick={() => navigate(`/SeeAllTasks`)}
+                    onClick={() =>
+                      navigate(`/Tasks/${taskList.id}`, {
+                        state: { taskListName: taskList.name },
+                      })
+                    }
                   >
                     See Tasks
                   </button>
