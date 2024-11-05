@@ -62,7 +62,13 @@ export default function ProjectDetails() {
             <div className="flex justify-center space-x-4 mt-6">
               <button
                 className="bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-500 transition duration-200"
-                onClick={() => navigate("/AddProjectMembers")}
+                onClick={() => navigate(`/ProjectMembers/${projectId}`)}
+              >
+                See Project Members
+              </button>
+              <button
+                className="bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-500 transition duration-200"
+                onClick={() => navigate(`/AddProjectMembers/${projectId}`)}
               >
                 Add Project Members
               </button>

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import MainHeader from "../layouts/Header/MainHeader";
-import { GetUserService } from "../services/Users/getUserById";
+import { GetUserService } from "../services/Users/getMyUserById";
 import { GetTasksByUserIdService } from "../services/Tasks/getTasksByUserId";
 import { Task } from "../types/Tasks/task";
 

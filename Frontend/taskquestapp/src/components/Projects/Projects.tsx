@@ -3,7 +3,7 @@ import { GetProjectsByUser } from "../../services/Projects/getProjectsByUser";
 import { Project } from "../../types/Projects/project";
 import MainHeader from "../../layouts/Header/MainHeader";
 import { useNavigate } from "react-router-dom";
-import ProjectsMiniNav from "../../layouts/ProjectsNav/ProjectsMiniNav";
+import ProjectsMiniNav from "../../layouts/MiniNavs/ProjectsMiniNav";
 
 export default function ProjectsComponent() {
   const [projects, setProjects] = useState<Project[]>([]);

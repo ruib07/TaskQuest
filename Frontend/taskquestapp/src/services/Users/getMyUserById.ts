@@ -1,7 +1,8 @@
 import axios from "axios";
 
-export const GetUserByIdService = async (userId: string) => {
+export const GetUserService = () => {
   const token = localStorage.getItem("token");
+  const userId = localStorage.getItem("id");
 
   if (token) {
     try {
@@ -10,12 +11,9 @@ export const GetUserByIdService = async (userId: string) => {
         Authorization: `bearer ${token}`,
       };
 
-      const response = await axios.get(
-        `http://localhost:3005/v1/users/${userId}`,
-        {
-          headers: headers,
-        }
-      );
+      const response = axios.get(`http://localhost:3005/v1/users/${userId}`, {
+        headers: headers,
+      });
       return response;
     } catch (error) {
       throw new Error("Failed to get user data!");

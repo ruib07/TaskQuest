@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const GetUserByIdService = async (userId: string) => {
+export const GetProjectMembersByProjectService = (projectId: string) => {
   const token = localStorage.getItem("token");
 
   if (token) {
@@ -10,15 +10,16 @@ export const GetUserByIdService = async (userId: string) => {
         Authorization: `bearer ${token}`,
       };
 
-      const response = await axios.get(
-        `http://localhost:3005/v1/users/${userId}`,
+      const response = axios.get(
+        `http://localhost:3005/v1/projectmembers/${projectId}`,
         {
           headers: headers,
         }
       );
+
       return response;
     } catch (error) {
-      throw new Error("Failed to get user data!");
+      throw new Error("Failed to retrieve project members!");
     }
   }
 };

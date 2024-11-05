@@ -67,7 +67,7 @@ export default function TaskCategories() {
                   </button>
                   <button
                     className="bg-blue-600 text-white py-2 px-4 rounded-lg font-medium hover:bg-blue-500 transition duration-200"
-                    onClick={() => navigate(`/AddTask`)}
+                    onClick={() => navigate(`/AddTask/${taskList.id}`)}
                   >
                     Add Task
                   </button>

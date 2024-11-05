@@ -1,6 +1,7 @@
+import { Task } from "../../types/Tasks/task";
 import axios from "axios";
 
-export const GetUserByIdService = async (userId: string) => {
+export const AddTaskService = async (newTask: Task) => {
   const token = localStorage.getItem("token");
 
   if (token) {
@@ -10,15 +11,17 @@ export const GetUserByIdService = async (userId: string) => {
         Authorization: `bearer ${token}`,
       };
 
-      const response = await axios.get(
-        `http://localhost:3005/v1/users/${userId}`,
+      const response = await axios.post(
+        "http://localhost:3005/v1/tasks",
+        newTask,
         {
           headers: headers,
         }
       );
+
       return response;
     } catch (error) {
-      throw new Error("Failed to get user data!");
+      throw new Error("Failed to create a new task!");
     }
   }
 };
