@@ -3,9 +3,9 @@ import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import Img from "../../assets/TaskQuestLogo.png";
 import MainHeader from "../../layouts/Header/MainHeader";
-import { Task } from "../../types/Tasks/task";
 import { GetAllUsersService } from "../../services/Users/getAllUsers";
 import { AddTaskService } from "../../services/Tasks/addTask";
+import { NewTask } from "../../types/Tasks/newTask";
 
 export default function AddTaskComponent() {
   const [title, setTitle] = useState<string>("");
@@ -59,7 +59,7 @@ export default function AddTaskComponent() {
       return;
     }
 
-    const newTask: Task = {
+    const newTask: NewTask = {
       title,
       description,
       status,

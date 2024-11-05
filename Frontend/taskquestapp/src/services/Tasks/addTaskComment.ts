@@ -1,7 +1,7 @@
-import { NewTask } from "../../types/Tasks/newTask";
+import { TaskComment } from "../../types/Tasks/taskComments";
 import axios from "axios";
 
-export const AddTaskService = async (newTask: NewTask) => {
+export const AddTaskCommentService = async (newTaskComment: TaskComment) => {
   const token = localStorage.getItem("token");
 
   if (token) {
@@ -12,8 +12,8 @@ export const AddTaskService = async (newTask: NewTask) => {
       };
 
       const response = await axios.post(
-        "http://localhost:3005/v1/tasks",
-        newTask,
+        "http://localhost:3005/v1/taskcomments",
+        newTaskComment,
         {
           headers: headers,
         }
@@ -21,7 +21,7 @@ export const AddTaskService = async (newTask: NewTask) => {
 
       return response;
     } catch (error) {
-      throw new Error("Failed to create a new task!");
+      throw new Error("Failed to add a task comment!");
     }
   }
 };

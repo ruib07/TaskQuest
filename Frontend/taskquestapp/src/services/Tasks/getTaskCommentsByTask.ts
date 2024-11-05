@@ -1,7 +1,6 @@
-import { NewTask } from "../../types/Tasks/newTask";
 import axios from "axios";
 
-export const AddTaskService = async (newTask: NewTask) => {
+export const GetTaskCommentsByTaskService = async (taskId: string) => {
   const token = localStorage.getItem("token");
 
   if (token) {
@@ -11,17 +10,16 @@ export const AddTaskService = async (newTask: NewTask) => {
         Authorization: `bearer ${token}`,
       };
 
-      const response = await axios.post(
-        "http://localhost:3005/v1/tasks",
-        newTask,
+      const response = await axios.get(
+        `http://localhost:3005/v1/taskcomments/${taskId}`,
         {
           headers: headers,
         }
       );
 
-      return response;
+      return response.data;
     } catch (error) {
-      throw new Error("Failed to create a new task!");
+      throw new Error("Failed to retrieve task comments by task!");
     }
   }
 };

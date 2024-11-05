@@ -1,7 +1,10 @@
-import { NewTask } from "../../types/Tasks/newTask";
 import axios from "axios";
+import { Task } from "../../types/Tasks/task";
 
-export const AddTaskService = async (newTask: NewTask) => {
+export const UpdateTaskDataService = (
+  taskId: string,
+  newTaskData: Partial<Task>
+) => {
   const token = localStorage.getItem("token");
 
   if (token) {
@@ -11,9 +14,9 @@ export const AddTaskService = async (newTask: NewTask) => {
         Authorization: `bearer ${token}`,
       };
 
-      const response = await axios.post(
-        "http://localhost:3005/v1/tasks",
-        newTask,
+      const response = axios.put(
+        `http://localhost:3005/v1/tasks/${taskId}`,
+        newTaskData,
         {
           headers: headers,
         }
@@ -21,7 +24,7 @@ export const AddTaskService = async (newTask: NewTask) => {
 
       return response;
     } catch (error) {
-      throw new Error("Failed to create a new task!");
+      throw new Error("Failed to update a task!");
     }
   }
 };

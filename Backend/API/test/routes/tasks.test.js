@@ -80,7 +80,7 @@ test('Test #37 - Get a task by ID', () => app.db('tasks')
     status: 'Pending',
     due_date: '2024-11-05',
   }, ['id'])
-  .then((taskRes) => request(app).get(`${route}/${taskRes[0].id}`)
+  .then((taskRes) => request(app).get(`${route}/byId/${taskRes[0].id}`)
     .set('Authorization', `bearer ${user.token}`))
   .then((res) => {
     expect(res.status).toBe(200);

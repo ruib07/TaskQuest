@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { GetTasksByTaskListIdService } from "../../services/Tasks/getTasksByTaskListId";
 import { Task } from "../../types/Tasks/task";
 import MainHeader from "../../layouts/Header/MainHeader";
@@ -9,6 +9,7 @@ export default function TasksByTaskList() {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [error, setError] = useState<string | null>(null);
   const location = useLocation();
+  const navigate = useNavigate();
 
   const taskListName = location.state?.taskListName;
 
@@ -59,6 +60,13 @@ export default function TasksByTaskList() {
                       {new Date(task.due_date).toLocaleDateString()}
                     </span>
                   </p>
+                  <br />
+                  <button
+                    className="bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-500 transition duration-200"
+                    onClick={() => navigate(`/TaskDetails/${task.id}`)}
+                  >
+                    See Task Details
+                  </button>
                 </div>
               ))}
             </div>

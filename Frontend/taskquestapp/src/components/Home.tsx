@@ -16,7 +16,12 @@ export default function HomeComponent() {
         setUserData({ name });
 
         const tasksResponse = await GetTasksByUserIdService();
-        setTasks(tasksResponse?.data);
+
+        const filteredTasks = tasksResponse?.data.filter(
+          (task: Task) => task.status !== "Completed"
+        );
+
+        setTasks(filteredTasks || null);
       } catch (error) {
         console.error("Failed to load user data:", error);
       }
@@ -35,7 +40,7 @@ export default function HomeComponent() {
             <div className="max-w-4xl mx-auto">
               <div className="bg-white rounded-3xl p-8 mb-5">
                 <h1 className="text-3xl font-bold mb-10">
-                  Messaging ID framework development for the marketing branch
+                  Messaging your co-workers
                 </h1>
                 <div className="flex items-center justify-between">
                   <div className="flex items-stretch">
@@ -133,7 +138,7 @@ export default function HomeComponent() {
                   </div>
                   <div>
                     <h2 className="text-2xl font-bold mb-4">
-                      Your tasks today
+                      Your pending tasks
                     </h2>
 
                     <div className="space-y-4">

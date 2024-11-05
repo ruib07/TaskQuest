@@ -59,7 +59,7 @@ export default function ProjectDetails() {
               <strong>Deadline:</strong>{" "}
               {new Date(project.deadline).toLocaleDateString()}
             </p>
-            <div className="flex justify-center space-x-4 mt-6">
+            <div className="grid grid-cols-2 gap-4 mt-6">
               <button
                 className="bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-500 transition duration-200"
                 onClick={() => navigate(`/ProjectMembers/${projectId}`)}

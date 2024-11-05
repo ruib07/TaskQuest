@@ -2,23 +2,30 @@ import { useEffect, useState } from "react";
 import { Task } from "../../types/Tasks/task";
 import MainHeader from "../../layouts/Header/MainHeader";
 import { GetTasksByUserIdService } from "../../services/Tasks/getTasksByUserId";
+import { useNavigate } from "react-router-dom";
 
 export default function TasksByUser() {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [error, setError] = useState<string | null>(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchTasks = async () => {
       try {
         const taskResponse = await GetTasksByUserIdService();
-        setTasks(taskResponse?.data);
+
+        const filteredTasks = taskResponse?.data.filter(
+          (task: Task) => task.status !== "Completed"
+        );
+
+        setTasks(filteredTasks || []);
       } catch (error) {
         setError("Failed to load tasks");
       }
     };
 
     fetchTasks();
-  });
+  }, []);
 
   return (
     <>
@@ -53,6 +60,13 @@ export default function TasksByUser() {
                       {new Date(task.due_date).toLocaleDateString()}
                     </span>
                   </p>
+                  <br />
+                  <button
+                    className="bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-500 transition duration-200"
+                    onClick={() => navigate(`/TaskDetails/${task.id}`)}
+                  >
+                    See Task Details
+                  </button>
                 </div>
               ))}
             </div>
