@@ -20,6 +20,7 @@ import AddTaskComponent from "./components/Tasks/AddTask";
 import AddProjectMemberComponent from "./components/Projects/AddProjectMember";
 import ProjectMembers from "./components/Projects/ProjectMembers";
 import TaskDetails from "./components/Tasks/TaskDetails";
+import ProjectMessagesComponent from "./components/Chat/ProjectMessages";
 
 export default function App() {
   return (
@@ -48,6 +49,10 @@ export default function App() {
             <Route
               path="/AddProjectMembers/:projectId"
               element={<AddProjectMemberComponent />}
+            />
+            <Route
+              path="/ChatMessages/:projectId"
+              element={<ProjectMessagesComponent />}
             />
             <Route
               path="/TaskCategories/:projectId"
