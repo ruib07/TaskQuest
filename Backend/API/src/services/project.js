@@ -1,7 +1,9 @@
 const ValidationError = require('../errors/validationError');
 
 module.exports = (app) => {
-  const findAll = (filter = {}) => app.db('projects').where(filter);
+  const findAll = () => app.db('projects');
+
+  const findAllByFilter = (filter = {}) => app.db('projects').where(filter);
 
   const find = (filter = {}) => app.db('projects').where(filter).first();
 
@@ -24,6 +26,7 @@ module.exports = (app) => {
 
   return {
     findAll,
+    findAllByFilter,
     find,
     save,
     update,

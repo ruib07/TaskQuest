@@ -4,11 +4,13 @@ import { AddChatMessage } from "../../services/Chat/addChatMessage";
 import { ChatMessage } from "../../types/Chat/chatMessages";
 import { useNavigate, useParams } from "react-router-dom";
 import MainHeader from "../../layouts/Header/MainHeader";
+import { GetUserByIdService } from "../../services/Users/getUserById";
 
 export default function ProjectMessagesComponent() {
   const { projectId } = useParams<{ projectId: string }>();
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [newMessage, setNewMessage] = useState("");
+  const [userNames, setUserNames] = useState<{ [key: string]: string }>({});
   const currentUserId = localStorage.getItem("id") || "";
   const navigate = useNavigate();
 
@@ -16,11 +18,27 @@ export default function ProjectMessagesComponent() {
     if (!projectId) return;
     try {
       const response = await GetChatMessagesByProjectService(projectId);
-      setMessages(response?.data || []);
+      const loadedMessages = response?.data || [];
+      setMessages(loadedMessages);
+
+      loadedMessages.forEach(async (message: any) => {
+        if (!userNames[message.sender_id]) {
+          try {
+            const userResponse = await GetUserByIdService(message.sender_id);
+            const userName = userResponse?.data?.name || "Unknown";
+            setUserNames((prevNames) => ({
+              ...prevNames,
+              [message.sender_id]: userName,
+            }));
+          } catch (error) {
+            console.error("Failed to load user name: ", error);
+          }
+        }
+      });
     } catch (error) {
       console.error("Failed to load chat messages:", error);
     }
-  }, [projectId]);
+  }, [projectId, userNames]);
 
   useEffect(() => {
     fetchMessages();
@@ -86,7 +104,7 @@ export default function ProjectMessagesComponent() {
                   <span className="font-semibold">
                     {message.sender_id === currentUserId
                       ? "You"
-                      : message.sender_id}
+                      : userNames[message.sender_id] || message.sender_id}
                   </span>
                   : {message.content}
                 </p>

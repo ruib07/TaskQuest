@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import { GetProjectsByUser } from "../../services/Projects/getProjectsByUser";
 import { Project } from "../../types/Projects/project";
 import MainHeader from "../../layouts/Header/MainHeader";
 import { useNavigate } from "react-router-dom";
 import ProjectsMiniNav from "../../layouts/MiniNavs/ProjectsMiniNav";
+import { GetAllProjectsService } from "../../services/Projects/getAllProjects";
 
 export default function ProjectsComponent() {
   const [projects, setProjects] = useState<Project[]>([]);
@@ -13,7 +13,7 @@ export default function ProjectsComponent() {
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        const response = await GetProjectsByUser();
+        const response = await GetAllProjectsService();
         setProjects(response?.data);
       } catch (error) {
         setError("Failed to load projects");

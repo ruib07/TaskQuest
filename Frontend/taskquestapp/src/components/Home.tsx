@@ -45,7 +45,7 @@ export default function HomeComponent() {
     <>
       <MainHeader />
       <br />
-      <div className="bg-yellow-50 overflow-hidden max-h-screen">
+      <div className="overflow-hidden max-h-screen">
         <main className="pt-16 max-h-screen overflow-auto">
           <div className="px-6 py-8">
             <div className="max-w-4xl mx-auto">

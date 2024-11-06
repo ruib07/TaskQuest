@@ -23,7 +23,13 @@ beforeAll(async () => {
   user.token = jwt.encode(user, secret);
 });
 
-test('Test #13 - Get all projects created by a user', () => app.db('projects')
+test('Test #13 - Get all projects', () => request(app).get(route)
+  .set('Authorization', `bearer ${user.token}`)
+  .then((res) => {
+    expect(res.status).toBe(200);
+  }));
+
+test('Test #14 - Get all projects created by a user', () => app.db('projects')
   .insert({
     name: 'TaskQuest',
     description: 'A web app capable of managing all the projects of an company',
@@ -36,7 +42,7 @@ test('Test #13 - Get all projects created by a user', () => app.db('projects')
     expect(res.status).toBe(200);
   }));
 
-test('Test #14 - Get a project by his ID', () => app.db('projects')
+test('Test #15 - Get a project by his ID', () => app.db('projects')
   .insert({
     name: 'TaskQuest',
     description: 'A web app capable of managing all the projects of an company',
@@ -49,7 +55,7 @@ test('Test #14 - Get a project by his ID', () => app.db('projects')
     expect(res.status).toBe(200);
   }));
 
-test('Test #15 - Creating a project', async () => {
+test('Test #16 - Creating a project', async () => {
   await request(app).post(route)
     .set('Authorization', `bearer ${user.token}`)
     .send({
@@ -78,13 +84,13 @@ describe('Project creation validation', () => {
       expect(res.body.error).toBe(errorMessage);
     });
 
-  test('Test #16 - Insert a project without a name', () => testTemplate({ name: null }, 'Name is required!'));
-  test('Test #17 - Insert a project without a description', () => testTemplate({ description: null }, 'Description is required!'));
-  test('Test #18 - Insert a project without a deadline', () => testTemplate({ deadline: null }, 'Deadline is required!'));
-  test('Test #19 - Insert a project without a creator ID', () => testTemplate({ created_by: null }, 'Project creator ID is required!'));
+  test('Test #17 - Insert a project without a name', () => testTemplate({ name: null }, 'Name is required!'));
+  test('Test #18 - Insert a project without a description', () => testTemplate({ description: null }, 'Description is required!'));
+  test('Test #19 - Insert a project without a deadline', () => testTemplate({ deadline: null }, 'Deadline is required!'));
+  test('Test #20 - Insert a project without a creator ID', () => testTemplate({ created_by: null }, 'Project creator ID is required!'));
 });
 
-test('Test #20 - Updating project data', () => app.db('projects')
+test('Test #21 - Updating project data', () => app.db('projects')
   .insert({
     name: 'TaskQuest',
     description: 'A web app capable of managing all the projects of an company',
@@ -103,7 +109,7 @@ test('Test #20 - Updating project data', () => app.db('projects')
     expect(res.status).toBe(200);
   }));
 
-test('Test #21 - Deleting an project', async () => {
+test('Test #22 - Deleting an project', async () => {
   const project = await app.db('projects')
     .insert({
       name: 'TaskQuest',

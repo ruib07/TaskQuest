@@ -33,7 +33,7 @@ beforeAll(async () => {
   project = { ...projectRegistration[0] };
 });
 
-test('Test #29 - Get task lists by project ID', () => app.db('task_lists')
+test('Test #30 - Get task lists by project ID', () => app.db('task_lists')
   .insert({
     project_id: project.id,
     name: 'Coding',
@@ -44,7 +44,7 @@ test('Test #29 - Get task lists by project ID', () => app.db('task_lists')
     expect(res.status).toBe(200);
   }));
 
-test('Test #30 - Insert a new task list', async () => {
+test('Test #31 - Insert a new task list', async () => {
   await request(app).post(route)
     .set('Authorization', `bearer ${user.token}`)
     .send({
@@ -69,11 +69,11 @@ describe('Task List creation validation', () => {
       expect(res.body.error).toBe(errorMessage);
     });
 
-  test('Test #31 - Insert a task list without a project ID', () => testTemplate({ project_id: null }, 'Project ID is required!'));
-  test('Test #32 - Insert a task list without a name', () => testTemplate({ name: null }, 'Name is required!'));
+  test('Test #32 - Insert a task list without a project ID', () => testTemplate({ project_id: null }, 'Project ID is required!'));
+  test('Test #33 - Insert a task list without a name', () => testTemplate({ name: null }, 'Name is required!'));
 });
 
-test('Test #33 - Updating a task list data', () => app.db('task_lists')
+test('Test #34 - Updating a task list data', () => app.db('task_lists')
   .insert({
     project_id: project.id,
     name: 'Coding',
@@ -88,7 +88,7 @@ test('Test #33 - Updating a task list data', () => app.db('task_lists')
     expect(res.status).toBe(200);
   }));
 
-test('Test #34 - Deleting an task list', async () => {
+test('Test #35 - Deleting an task list', async () => {
   const taskList = await app.db('task_lists').insert({
     project_id: project.id,
     name: 'Coding',

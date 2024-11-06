@@ -53,7 +53,7 @@ beforeAll(async () => {
   task = { ...taskRegistration[0] };
 });
 
-test('Test #47 - Get all task comments by task ID', () => app.db('task_comments')
+test('Test #48 - Get all task comments by task ID', () => app.db('task_comments')
   .insert({
     task_id: task.id,
     user_id: user.id,
@@ -65,7 +65,7 @@ test('Test #47 - Get all task comments by task ID', () => app.db('task_comments'
     expect(res.status).toBe(200);
   }));
 
-test('Test #48 - Insert a new task comment', async () => {
+test('Test #49 - Insert a new task comment', async () => {
   await request(app).post(route)
     .set('Authorization', `bearer ${user.token}`)
     .send({
@@ -92,12 +92,12 @@ describe('Task Comment creation validation', () => {
       expect(res.body.error).toBe(errorMessage);
     });
 
-  test('Test #49 - Insert a task comment without a task ID', () => testTemplate({ task_id: null }, 'Task ID is required!'));
-  test('Test #50 - Insert a task comment without a user ID', () => testTemplate({ user_id: null }, 'User ID is required!'));
-  test('Test #51 - Insert a task comment without a content', () => testTemplate({ content: null }, 'Content is required!'));
+  test('Test #50 - Insert a task comment without a task ID', () => testTemplate({ task_id: null }, 'Task ID is required!'));
+  test('Test #51 - Insert a task comment without a user ID', () => testTemplate({ user_id: null }, 'User ID is required!'));
+  test('Test #52 - Insert a task comment without a content', () => testTemplate({ content: null }, 'Content is required!'));
 });
 
-test('Test #52 - Deleting an task comment', async () => {
+test('Test #53 - Deleting an task comment', async () => {
   const taskComment = await app.db('task_comments').insert({
     task_id: task.id,
     user_id: user.id,

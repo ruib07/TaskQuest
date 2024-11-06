@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-export default function ScrollToTop() {
+export default function ScrollToTopButton() {
   const [windowScrolled, setWindowScrolled] = useState<boolean>(false);
 
   useEffect(() => {

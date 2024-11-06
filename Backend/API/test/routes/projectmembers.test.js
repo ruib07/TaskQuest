@@ -33,7 +33,7 @@ beforeAll(async () => {
   project = { ...projectRegistration[0] };
 });
 
-test('Test #22 - Get all project members by Project ID', async () => {
+test('Test #23 - Get all project members by Project ID', async () => {
   await app.db('project_members').where({ project_id: project.id }).del();
 
   await app.db('project_members').insert({
@@ -47,7 +47,7 @@ test('Test #22 - Get all project members by Project ID', async () => {
   expect(res.status).toBe(200);
 });
 
-test('Test #23 - Insert a new project member', async () => {
+test('Test #24 - Insert a new project member', async () => {
   await app.db('project_members').where({ project_id: project.id, user_id: user.id }).del();
 
   const res = await request(app).post(route)
@@ -74,12 +74,12 @@ describe('Project Member creation validation', () => {
       expect(res.body.error).toBe(errorMessage);
     });
 
-  test('Test #24 - Insert a project member without a project ID', () => testTemplate({ project_id: null }, 'Project ID is required!'));
-  test('Test #25 - Insert a project member without a user ID', () => testTemplate({ user_id: null }, 'User ID is required!'));
-  test('Test #26 - Insert a project member without a role', () => testTemplate({ role: null }, 'Role is required!'));
+  test('Test #25 - Insert a project member without a project ID', () => testTemplate({ project_id: null }, 'Project ID is required!'));
+  test('Test #26 - Insert a project member without a user ID', () => testTemplate({ user_id: null }, 'User ID is required!'));
+  test('Test #27 - Insert a project member without a role', () => testTemplate({ role: null }, 'Role is required!'));
 });
 
-test('Test #27 - Updating a project member data', async () => {
+test('Test #28 - Updating a project member data', async () => {
   await app.db('project_members').where({ project_id: project.id, user_id: user.id }).del();
 
   const projectMember = await app.db('project_members').insert({
@@ -98,7 +98,7 @@ test('Test #27 - Updating a project member data', async () => {
   expect(res.status).toBe(200);
 });
 
-test('Test #28 - Deleting a project member', async () => {
+test('Test #29 - Deleting a project member', async () => {
   await app.db('project_members').where({ project_id: project.id, user_id: user.id }).del();
 
   const projectMember = await app.db('project_members').insert({

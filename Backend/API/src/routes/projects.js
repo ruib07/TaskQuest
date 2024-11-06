@@ -3,8 +3,14 @@ const express = require('express');
 module.exports = (app) => {
   const router = express.Router();
 
+  router.get('/', (req, res, next) => {
+    app.services.project.findAll()
+      .then((result) => res.status(200).json(result))
+      .catch((error) => next(error));
+  });
+
   router.get('/:created_by', (req, res, next) => {
-    app.services.project.findAll({ created_by: req.params.created_by })
+    app.services.project.findAllByFilter({ created_by: req.params.created_by })
       .then((result) => res.status(200).json(result))
       .catch((error) => next(error));
   });

@@ -10,7 +10,6 @@ import ProjectsComponent from "./components/Projects/Projects";
 import AddProjectComponent from "./components/Projects/AddProject";
 import ProjectDetails from "./components/Projects/ProjectDetails";
 import TeamComponent from "./components/Team";
-import ScrollToTop from "./hooks/ScrollToTop";
 import TaskCategories from "./components/Tasks/TaskCategories";
 import TasksByTaskList from "./components/Tasks/TasksByTaskCategory";
 import TasksByUser from "./components/Tasks/TasksByUser";
@@ -21,13 +20,16 @@ import AddProjectMemberComponent from "./components/Projects/AddProjectMember";
 import ProjectMembers from "./components/Projects/ProjectMembers";
 import TaskDetails from "./components/Tasks/TaskDetails";
 import ProjectMessagesComponent from "./components/Chat/ProjectMessages";
+import ScrollToTopButton from "./hooks/ScrollToTopButton";
+import GoToTopPage from "./hooks/GoToTopPage";
 
 export default function App() {
   return (
     <Router>
       <div className="flex flex-col min-h-screen">
         <ToastContainer />
-        <ScrollToTop />
+        <GoToTopPage />
+        <ScrollToTopButton />
 
         <div className="flex-grow container mx-auto">
           <Routes>

@@ -33,7 +33,7 @@ beforeAll(async () => {
   project = { ...projectRegistration[0] };
 });
 
-test('Test #61 - Get all productivity metrics by project ID', () => app.db('productivity_metrics')
+test('Test #62 - Get all productivity metrics by project ID', () => app.db('productivity_metrics')
   .insert({
     project_id: project.id,
     user_id: user.id,
@@ -45,7 +45,7 @@ test('Test #61 - Get all productivity metrics by project ID', () => app.db('prod
     expect(res.status).toBe(200);
   }));
 
-test('Test #62 - Get all productivity metrics by user ID', () => app.db('productivity_metrics')
+test('Test #63 - Get all productivity metrics by user ID', () => app.db('productivity_metrics')
   .insert({
     project_id: project.id,
     user_id: user.id,
