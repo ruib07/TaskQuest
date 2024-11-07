@@ -4,6 +4,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 import UserRegistration from "./components/Auth/UserRegistration";
 import Authentication from "./components/Auth/UserLogin";
+import UserProfile from "./components/User/Profile";
 
 import Dashboard from "./components/Dashboard";
 import TeamMembers from "./components/Team";
@@ -44,6 +45,7 @@ export default function App() {
               element={<UserRegistration />}
             />
             <Route path="/Authentication/Login" element={<Authentication />} />
+            <Route path="/Profile" element={<UserProfile />} />
             <Route path="/Team" element={<TeamMembers />} />
             <Route path="/Projects" element={<Projects />} />
             <Route path="/Project/:projectId" element={<ProjectDetails />} />

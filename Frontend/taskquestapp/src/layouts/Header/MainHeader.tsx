@@ -44,6 +44,7 @@ export default function MainHeader() {
     localStorage.removeItem("id");
     setUserData(null);
     navigate("/Dashboard");
+    window.location.reload();
   };
 
   return (
@@ -114,7 +115,7 @@ export default function MainHeader() {
                 <div>
                   <MenuButton className="flex items-center text-sm text-white">
                     <img
-                      alt=""
+                      alt="UserIcon"
                       src="https://pngimg.com/d/anonymous_mask_PNG28.png"
                       className="h-8 w-8 rounded-full"
                     />
@@ -127,18 +128,10 @@ export default function MainHeader() {
                 >
                   <MenuItem>
                     <a
-                      href="/profile"
+                      href="/Profile"
                       className="block px-4 py-2 text-sm text-gray-700"
                     >
                       Your Profile
-                    </a>
-                  </MenuItem>
-                  <MenuItem>
-                    <a
-                      href="/settings"
-                      className="block px-4 py-2 text-sm text-gray-700"
-                    >
-                      Settings
                     </a>
                   </MenuItem>
                   <MenuItem>

@@ -1,15 +1,16 @@
 import { useEffect, useState } from "react";
 import MainHeader from "../layouts/Header/MainHeader";
 import { GetMyUser } from "../services/Users/GET/getMyUserById";
-import { GetTasksByUserId} from "../services/Tasks/GET/getTasksByUserId";
+import { GetTasksByUserId } from "../services/Tasks/GET/getTasksByUserId";
 import { Task } from "../types/Tasks/task";
+import { useNavigate } from "react-router-dom";
 
 export default function Dashboard() {
   const [user, setUser] = useState<{ name: string } | null>(null);
   const [tasks, setTasks] = useState<Task[]>([]);
   const [completedTasksCount, setCompletedTasksCount] = useState(0);
   const [totalTasksCount, setTotalTasksCount] = useState(0);
-  const [trackedHours, setTrackerHours] = useState(0);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -31,8 +32,6 @@ export default function Dashboard() {
           (task: Task) => task.status !== "Completed"
         );
         setTasks(pendingTasks);
-
-        setTrackerHours(5.5);
       } catch (error) {
         console.error("Failed to load user data:", error);
       }
@@ -67,6 +66,7 @@ export default function Dashboard() {
                             <button
                               type="button"
                               className="inline-flex items-center justify-center py-2 px-3 rounded-xl bg-white text-gray-800 hover:text-green-500 text-sm font-semibold transition"
+                              onClick={() => navigate("/Tasks/byUser")}
                             >
                               Start tracking
                             </button>
@@ -74,25 +74,17 @@ export default function Dashboard() {
                         </div>
                       </div>
                       <div className="p-4 bg-yellow-100 rounded-xl text-gray-800">
-                        <div className="font-bold text-2xl leading-none">
-                          {completedTasksCount}
+                        <div className="font-bold text-1xl leading-none">
+                          Tasks finished
                         </div>
-                        <div className="mt-2">Tasks finished</div>
+                        <div className="mt-2">{completedTasksCount}</div>
                       </div>
-                      <div className="p-4 bg-yellow-100 rounded-xl text-gray-800">
-                        <div className="font-bold text-2xl leading-none">
-                          {trackedHours}
+                      <div className="p-4 bg-purple-100 rounded-xl text-gray-800">
+                        <div className="font-bold text-1xl leading-none">
+                          Task Progress
                         </div>
-                        <div className="mt-2">Tracked hours</div>
-                      </div>
-                      <div className="col-span-2">
-                        <div className="p-4 bg-purple-100 rounded-xl text-gray-800">
-                          <div className="font-bold text-xl leading-none">
-                            Your daily plan
-                          </div>
-                          <div className="mt-2">
-                            {completedTasksCount} of {totalTasksCount} completed
-                          </div>
+                        <div className="mt-2">
+                          {completedTasksCount} of {totalTasksCount} completed
                         </div>
                       </div>
                     </div>

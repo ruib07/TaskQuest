@@ -27,6 +27,10 @@ export default function TasksByUser() {
     fetchTasks();
   }, []);
 
+  const handleTaskClick = (taskId: string) => {
+    navigate(`/TaskDetails/${taskId}`);
+  };
+
   return (
     <>
       <MainHeader />
@@ -45,6 +49,7 @@ export default function TasksByUser() {
               {tasks.map((task) => (
                 <div
                   key={task.title}
+                  onClick={() => handleTaskClick(task.id)}
                   className="bg-white shadow-lg rounded-xl p-6 transform transition duration-300 hover:scale-105 hover:shadow-2xl border border-gray-200 text-center cursor-pointer"
                 >
                   <h3 className="text-2xl font-semibold text-blue-600 mb-2">
@@ -60,13 +65,6 @@ export default function TasksByUser() {
                       {new Date(task.due_date).toLocaleDateString()}
                     </span>
                   </p>
-                  <br />
-                  <button
-                    className="bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-500 transition duration-200"
-                    onClick={() => navigate(`/TaskDetails/${task.id}`)}
-                  >
-                    See Task Details
-                  </button>
                 </div>
               ))}
             </div>
