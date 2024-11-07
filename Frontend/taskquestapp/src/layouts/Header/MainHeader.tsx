@@ -11,7 +11,7 @@ import {
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import Icon from "../../assets/TaskQuestLogo.png";
 import { useNavigate, useLocation } from "react-router-dom";
-import { GetUserService } from "../../services/Users/getMyUserById";
+import { GetMyUser } from "../../services/Users/GET/getMyUserById";
 import { navigation } from "../../data/navigation";
 
 function classNames(...classes: any) {
@@ -28,7 +28,7 @@ export default function MainHeader() {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await GetUserService();
+        const response = await GetMyUser();
         const { name } = response?.data;
         setUserData({ name });
       } catch (error) {

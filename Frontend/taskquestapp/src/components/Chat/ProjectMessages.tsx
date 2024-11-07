@@ -1,12 +1,12 @@
 import { useCallback, useEffect, useState } from "react";
-import { GetChatMessagesByProjectService } from "../../services/Chat/getChatMessagesByProject";
-import { AddChatMessage } from "../../services/Chat/addChatMessage";
+import { GetMessagesByProject } from "../../services/Chat/GET/getChatMessagesByProject";
+import { AddMessage } from "../../services/Chat/POST/addChatMessage";
 import { ChatMessage } from "../../types/Chat/chatMessages";
 import { useNavigate, useParams } from "react-router-dom";
 import MainHeader from "../../layouts/Header/MainHeader";
-import { GetUserByIdService } from "../../services/Users/getUserById";
+import { GetUserById } from "../../services/Users/GET/getUserById";
 
-export default function ProjectMessagesComponent() {
+export default function ProjectMessages() {
   const { projectId } = useParams<{ projectId: string }>();
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [newMessage, setNewMessage] = useState("");
@@ -17,14 +17,14 @@ export default function ProjectMessagesComponent() {
   const fetchMessages = useCallback(async () => {
     if (!projectId) return;
     try {
-      const response = await GetChatMessagesByProjectService(projectId);
+      const response = await GetMessagesByProject(projectId);
       const loadedMessages = response?.data || [];
       setMessages(loadedMessages);
 
       loadedMessages.forEach(async (message: any) => {
         if (!userNames[message.sender_id]) {
           try {
-            const userResponse = await GetUserByIdService(message.sender_id);
+            const userResponse = await GetUserById(message.sender_id);
             const userName = userResponse?.data?.name || "Unknown";
             setUserNames((prevNames) => ({
               ...prevNames,
@@ -58,7 +58,7 @@ export default function ProjectMessagesComponent() {
     };
 
     try {
-      await AddChatMessage(messageData);
+      await AddMessage(messageData);
       setNewMessage("");
       fetchMessages();
     } catch (error) {

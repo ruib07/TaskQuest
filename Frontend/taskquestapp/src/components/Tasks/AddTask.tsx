@@ -3,11 +3,11 @@ import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import Img from "../../assets/TaskQuestLogo.png";
 import MainHeader from "../../layouts/Header/MainHeader";
-import { GetAllUsersService } from "../../services/Users/getAllUsers";
-import { AddTaskService } from "../../services/Tasks/addTask";
+import { GetAllUsers } from "../../services/Users/GET/getAllUsers";
+import { AddTask } from "../../services/Tasks/POST/addTask";
 import { NewTask } from "../../types/Tasks/newTask";
 
-export default function AddTaskComponent() {
+export default function AddNewTask() {
   const [title, setTitle] = useState<string>("");
   const [description, setDescription] = useState<string>("");
   const [status, setStatus] = useState<string>("Pending");
@@ -22,7 +22,7 @@ export default function AddTaskComponent() {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await GetAllUsersService();
+        const response = await GetAllUsers();
         setUsers(response?.data || []);
         setFilteredUsers(response?.data || []);
       } catch (error) {
@@ -69,7 +69,7 @@ export default function AddTaskComponent() {
     };
 
     try {
-      await AddTaskService(newTask);
+      await AddTask(newTask);
       showSuccess();
 
       setTitle("");

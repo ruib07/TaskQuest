@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { AddProjectService } from "../../services/Projects/addProject";
+import { AddProject } from "../../services/Projects/POST/addProject";
 import Img from "../../assets/TaskQuestLogo.png";
 import MainHeader from "../../layouts/Header/MainHeader";
 import { NewProject } from "../../types/Projects/newProject";
 
-export default function AddProjectComponent() {
+export default function AddNewProject() {
   const [name, setName] = useState<string>("");
   const [description, setDescription] = useState<string>("");
   const [deadline, setDeadline] = useState<string>("");
@@ -48,7 +48,7 @@ export default function AddProjectComponent() {
     };
 
     try {
-      await AddProjectService(newProject);
+      await AddProject(newProject);
       showSuccess();
 
       setName("");

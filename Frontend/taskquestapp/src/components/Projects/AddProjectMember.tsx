@@ -3,11 +3,11 @@ import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import Img from "../../assets/TaskQuestLogo.png";
 import MainHeader from "../../layouts/Header/MainHeader";
-import { GetAllUsersService } from "../../services/Users/getAllUsers";
+import { GetAllUsers } from "../../services/Users/GET/getAllUsers";
 import { ProjectMember } from "../../types/Projects/projectMember";
-import { AddProjectMemberService } from "../../services/Projects/addProjectMember";
+import { AddProjectMember } from "../../services/Projects/POST/addProjectMember";
 
-export default function AddProjectMemberComponent() {
+export default function AddNewProjectMember() {
   const [role, setRole] = useState<string>("");
   const [user_id, setUserId] = useState<string>("");
   const [users, setUsers] = useState<{ id: string; name: string }[]>([]);
@@ -19,7 +19,7 @@ export default function AddProjectMemberComponent() {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await GetAllUsersService();
+        const response = await GetAllUsers();
         setUsers(response?.data || []);
         setFilteredUsers(response?.data || []);
       } catch (error) {
@@ -63,11 +63,11 @@ export default function AddProjectMemberComponent() {
     };
 
     try {
-      await AddProjectMemberService(newProjectMember);
+      await AddProjectMember(newProjectMember);
       showSuccess();
 
       setRole("");
-      navigate(`/Projects`);
+      navigate(`/ProjectMembers/${projectId}`);
     } catch (error) {
       showError();
     }

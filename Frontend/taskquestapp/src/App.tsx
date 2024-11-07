@@ -2,26 +2,30 @@ import { ToastContainer } from "react-toastify";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 
-import RegistrationComponent from "./components/Auth/UserRegistration";
-import LoginComponent from "./components/Auth/UserLogin";
-import HomeComponent from "./components/Home";
-import NotFoundPage from "./components/404";
-import ProjectsComponent from "./components/Projects/Projects";
-import AddProjectComponent from "./components/Projects/AddProject";
+import UserRegistration from "./components/Auth/UserRegistration";
+import Authentication from "./components/Auth/UserLogin";
+
+import Dashboard from "./components/Dashboard";
+import TeamMembers from "./components/Team";
+import NotFound from "./components/404";
+
+import Projects from "./components/Projects/Projects";
+import AddProject from "./components/Projects/AddProject";
 import ProjectDetails from "./components/Projects/ProjectDetails";
-import TeamComponent from "./components/Team";
+import ProjectMembers from "./components/Projects/ProjectMembers";
+import AddProjectMember from "./components/Projects/AddProjectMember";
+import ProjectMessages from "./components/Chat/ProjectMessages";
+
 import TaskCategories from "./components/Tasks/TaskCategories";
+import AddTaskCategory from "./components/Tasks/AddTaskCategory";
 import TasksByTaskList from "./components/Tasks/TasksByTaskCategory";
 import TasksByUser from "./components/Tasks/TasksByUser";
-import Footer from "./layouts/Footer/Footer";
-import AddTaskCategoryComponent from "./components/Tasks/AddTaskCategory";
-import AddTaskComponent from "./components/Tasks/AddTask";
-import AddProjectMemberComponent from "./components/Projects/AddProjectMember";
-import ProjectMembers from "./components/Projects/ProjectMembers";
+import AddTask from "./components/Tasks/AddTask";
 import TaskDetails from "./components/Tasks/TaskDetails";
-import ProjectMessagesComponent from "./components/Chat/ProjectMessages";
+
 import ScrollToTopButton from "./hooks/ScrollToTopButton";
 import GoToTopPage from "./hooks/GoToTopPage";
+import Footer from "./layouts/Footer/Footer";
 
 export default function App() {
   return (
@@ -33,28 +37,28 @@ export default function App() {
 
         <div className="flex-grow container mx-auto">
           <Routes>
-            <Route path="/" element={<HomeComponent />} />
-            <Route path="/Dashboard" element={<HomeComponent />} />
+            <Route path="/" element={<Dashboard />} />
+            <Route path="/Dashboard" element={<Dashboard />} />
             <Route
               path="/Authentication/Registration"
-              element={<RegistrationComponent />}
+              element={<UserRegistration />}
             />
-            <Route path="/Authentication/Login" element={<LoginComponent />} />
-            <Route path="/Team" element={<TeamComponent />} />
-            <Route path="/Projects" element={<ProjectsComponent />} />
+            <Route path="/Authentication/Login" element={<Authentication />} />
+            <Route path="/Team" element={<TeamMembers />} />
+            <Route path="/Projects" element={<Projects />} />
             <Route path="/Project/:projectId" element={<ProjectDetails />} />
-            <Route path="/AddProject" element={<AddProjectComponent />} />
+            <Route path="/AddProject" element={<AddProject />} />
             <Route
               path="/ProjectMembers/:projectId"
               element={<ProjectMembers />}
             />
             <Route
               path="/AddProjectMembers/:projectId"
-              element={<AddProjectMemberComponent />}
+              element={<AddProjectMember />}
             />
             <Route
               path="/ChatMessages/:projectId"
-              element={<ProjectMessagesComponent />}
+              element={<ProjectMessages />}
             />
             <Route
               path="/TaskCategories/:projectId"
@@ -64,11 +68,11 @@ export default function App() {
             <Route path="/Tasks/byUser" element={<TasksByUser />} />
             <Route
               path="/AddTaskCategory/:projectId"
-              element={<AddTaskCategoryComponent />}
+              element={<AddTaskCategory />}
             />
-            <Route path="/AddTask/:taskListId" element={<AddTaskComponent />} />
+            <Route path="/AddTask/:taskListId" element={<AddTask />} />
             <Route path="/TaskDetails/:taskId" element={<TaskDetails />} />
-            <Route path="*" element={<NotFoundPage />} />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </div>
 

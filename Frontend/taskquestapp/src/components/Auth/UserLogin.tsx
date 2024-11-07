@@ -5,9 +5,9 @@ import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { toast } from "react-toastify";
 import Img from "../../assets/TaskQuestLogo.png";
 import { UserLogin } from "../../types/Auth/login";
-import { UserLoginService } from "../../services/Auth/userLogin";
+import { Login } from "../../services/Auth/userLogin";
 
-export default function LoginComponent() {
+export default function Authentication() {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [visible, setVisible] = useState<boolean>(true);
@@ -40,7 +40,7 @@ export default function LoginComponent() {
     };
 
     try {
-      const res = await UserLoginService(login);
+      const res = await Login(login);
       console.log(res);
       const token = res.token;
       const userid = res.user.id;

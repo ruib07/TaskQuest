@@ -1,12 +1,11 @@
-import axios from "axios";
 import { UserLogin } from "../../types/Auth/login";
+import axios from "axios";
 
-export const UserLoginService = async (login: UserLogin) => {
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
+export const Login = async (login: UserLogin) => {
   try {
-    const response = await axios.post(
-      "http://localhost:3005/auth/signin",
-      login
-    );
+    const response = await axios.post(`${API_BASE_URL}/auth/signin`, login);
     return response.data;
   } catch (error) {
     throw new Error("Failed to login!");

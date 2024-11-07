@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Task } from "../../types/Tasks/task";
 import MainHeader from "../../layouts/Header/MainHeader";
-import { GetTasksByUserIdService } from "../../services/Tasks/getTasksByUserId";
+import { GetTasksByUserId } from "../../services/Tasks/GET/getTasksByUserId";
 import { useNavigate } from "react-router-dom";
 
 export default function TasksByUser() {
@@ -12,7 +12,7 @@ export default function TasksByUser() {
   useEffect(() => {
     const fetchTasks = async () => {
       try {
-        const taskResponse = await GetTasksByUserIdService();
+        const taskResponse = await GetTasksByUserId();
 
         const filteredTasks = taskResponse?.data.filter(
           (task: Task) => task.status !== "Completed"

@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import MainHeader from "../layouts/Header/MainHeader";
-import { GetUserService } from "../services/Users/getMyUserById";
-import { GetTasksByUserIdService } from "../services/Tasks/getTasksByUserId";
+import { GetMyUser } from "../services/Users/GET/getMyUserById";
+import { GetTasksByUserId} from "../services/Tasks/GET/getTasksByUserId";
 import { Task } from "../types/Tasks/task";
 
-export default function HomeComponent() {
+export default function Dashboard() {
   const [user, setUser] = useState<{ name: string } | null>(null);
   const [tasks, setTasks] = useState<Task[]>([]);
   const [completedTasksCount, setCompletedTasksCount] = useState(0);
@@ -14,11 +14,11 @@ export default function HomeComponent() {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const response = await GetUserService();
+        const response = await GetMyUser();
         const { name } = response?.data;
         setUser({ name });
 
-        const tasksResponse = await GetTasksByUserIdService();
+        const tasksResponse = await GetTasksByUserId();
         const allTasks = tasksResponse?.data;
 
         const completedTasks = allTasks.filter(

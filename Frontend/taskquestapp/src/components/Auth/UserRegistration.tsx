@@ -5,9 +5,9 @@ import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { toast } from "react-toastify";
 import Img from "../../assets/TaskQuestLogo.png";
 import { UserRegistration } from "../../types/Auth/registration";
-import { UserRegistrationService } from "../../services/Auth/userRegistration";
+import { Registration } from "../../services/Auth/userRegistration";
 
-export default function RegistrationComponent() {
+export default function NewRegistration() {
   const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
@@ -42,7 +42,7 @@ export default function RegistrationComponent() {
     };
 
     try {
-      await UserRegistrationService(newUser);
+      await Registration(newUser);
       showSuccess();
 
       setName("");

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
-import { GetTasksByTaskListIdService } from "../../services/Tasks/getTasksByTaskListId";
+import { GetTasksByTaskListId } from "../../services/Tasks/GET/getTasksByTaskListId";
 import { Task } from "../../types/Tasks/task";
 import MainHeader from "../../layouts/Header/MainHeader";
 
@@ -16,7 +16,7 @@ export default function TasksByTaskList() {
   useEffect(() => {
     const fetchTasks = async () => {
       try {
-        const taskResponse = await GetTasksByTaskListIdService(taskListId!);
+        const taskResponse = await GetTasksByTaskListId(taskListId!);
         setTasks(taskResponse?.data);
       } catch (error) {
         setError("Failed to load tasks");

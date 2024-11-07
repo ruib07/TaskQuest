@@ -1,9 +1,11 @@
-import axios from "axios";
 import { UserRegistration } from "../../types/Auth/registration";
+import axios from "axios";
 
-export const UserRegistrationService = async (newUser: UserRegistration) => {
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
+export const Registration = async (newUser: UserRegistration) => {
   try {
-    await axios.post("http://localhost:3005/auth/signup", newUser);
+    await axios.post(`${API_BASE_URL}/auth/signup`, newUser);
   } catch (error) {
     throw new Error("Failed to register user!");
   }

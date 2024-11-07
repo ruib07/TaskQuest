@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import { GetAllUsersService } from "../services/Users/getAllUsers";
+import { GetAllUsers } from "../services/Users/GET/getAllUsers";
 import { User } from "../types/Users/user";
 import MainHeader from "../layouts/Header/MainHeader";
 import { useNavigate } from "react-router-dom";
 
-export default function TeamComponent() {
+export default function TeamMembers() {
   const [users, setUsers] = useState<User[]>([]);
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
@@ -12,7 +12,7 @@ export default function TeamComponent() {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await GetAllUsersService();
+        const response = await GetAllUsers();
         setUsers(response?.data);
       } catch (err) {
         setError("Failed to retrieve users.");

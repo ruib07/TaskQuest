@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { GetProjectById } from "../../services/Projects/getProjectById";
+import { GetProjectById } from "../../services/Projects/GET/getProjectById";
 import { Project } from "../../types/Projects/project";
 import MainHeader from "../../layouts/Header/MainHeader";
 import DeleteProjectModal from "./DeleteProjectModal";

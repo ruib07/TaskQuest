@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import MainHeader from "../../layouts/Header/MainHeader";
-import { GetProjectById } from "../../services/Projects/getProjectById";
+import { GetProjectById } from "../../services/Projects/GET/getProjectById";
 import { Project } from "../../types/Projects/project";
-import { GetProjectMembersByProjectService } from "../../services/Projects/getProjectMembersByProject";
-import { GetUserByIdService } from "../../services/Users/getUserById";
+import { GetProjectMembersByProject } from "../../services/Projects/GET/getProjectMembersByProject";
+import { GetUserById } from "../../services/Users/GET/getUserById";
 import { ProjectMember } from "../../types/Projects/projectMember";
 
 export default function ProjectMembers() {
@@ -20,7 +20,7 @@ export default function ProjectMembers() {
         const projectResponse = await GetProjectById(projectId!);
         setProject(projectResponse?.data);
 
-        const projectMemberResponse = await GetProjectMembersByProjectService(
+        const projectMemberResponse = await GetProjectMembersByProject(
           projectId!
         );
         setProjectMembers(projectMemberResponse?.data || []);
@@ -38,7 +38,7 @@ export default function ProjectMembers() {
 
       for (const member of projectMembers) {
         try {
-          const userResponse = await GetUserByIdService(member.user_id);
+          const userResponse = await GetUserById(member.user_id);
           newNames[member.user_id] = userResponse?.data?.name || "Unknown";
         } catch {
           newNames[member.user_id] = "Unknown";

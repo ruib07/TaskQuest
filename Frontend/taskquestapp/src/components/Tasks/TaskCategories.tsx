@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { GetTaskListsByProjectIdService } from "../../services/Tasks/getTaskListsByProjectId";
+import { GetTaskListsByProjectId } from "../../services/Tasks/GET/getTaskListsByProjectId";
 import { TaskList } from "../../types/Tasks/taskList";
 import MainHeader from "../../layouts/Header/MainHeader";
-import { GetProjectById } from "../../services/Projects/getProjectById";
+import { GetProjectById } from "../../services/Projects/GET/getProjectById";
 import { Project } from "../../types/Projects/project";
 
 export default function TaskCategories() {
@@ -19,7 +19,7 @@ export default function TaskCategories() {
         const projectResponse = await GetProjectById(projectId!);
         setProject(projectResponse?.data);
 
-        const taskResponse = await GetTaskListsByProjectIdService(projectId!);
+        const taskResponse = await GetTaskListsByProjectId(projectId!);
         setTaskLists(taskResponse?.data || []);
       } catch (error) {
         setError("Failed to load task lists");

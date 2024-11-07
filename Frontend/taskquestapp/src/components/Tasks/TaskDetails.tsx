@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { GetTaskByIdService } from "../../services/Tasks/getTaskById";
-import { GetTaskCommentsByTaskService } from "../../services/Tasks/getTaskCommentsByTask";
-import { GetUserByIdService } from "../../services/Users/getUserById";
+import { GetTaskById } from "../../services/Tasks/GET/getTaskById";
+import { GetTaskCommentsByTask } from "../../services/Tasks/GET/getTaskCommentsByTask";
+import { GetUserById } from "../../services/Users/GET/getUserById";
 import { Task } from "../../types/Tasks/task";
 import { TaskComment } from "../../types/Tasks/taskComments";
-import { AddTaskCommentService } from "../../services/Tasks/addTaskComment";
+import { AddTaskComment } from "../../services/Tasks/POST/addTaskComment";
 import MainHeader from "../../layouts/Header/MainHeader";
-import { UpdateTaskDataService } from "../../services/Tasks/updateTaskData";
+import { UpdateTaskData } from "../../services/Tasks/PUT/updateTaskData";
 
 export default function TaskDetails() {
   const { taskId } = useParams<{ taskId: string }>();
@@ -22,7 +22,7 @@ export default function TaskDetails() {
   useEffect(() => {
     const fetchTaskDetails = async () => {
       try {
-        const taskResponse = await GetTaskByIdService(taskId!);
+        const taskResponse = await GetTaskById(taskId!);
         setTask(taskResponse?.data);
         setEditTitle(taskResponse?.data.title);
         setEditDescription(taskResponse?.data.description);
@@ -37,7 +37,7 @@ export default function TaskDetails() {
   useEffect(() => {
     const fetchComments = async () => {
       try {
-        const commentsResponse = await GetTaskCommentsByTaskService(taskId!);
+        const commentsResponse = await GetTaskCommentsByTask(taskId!);
         setComments(commentsResponse || []);
       } catch (error) {
         console.error("Failed to load comments");
@@ -53,7 +53,7 @@ export default function TaskDetails() {
 
       for (const comment of comments) {
         try {
-          const userResponse = await GetUserByIdService(comment.user_id);
+          const userResponse = await GetUserById(comment.user_id);
           newNames[comment.user_id] = userResponse?.data?.name || "Unknown";
         } catch {
           newNames[comment.user_id] = "Unknown";
@@ -71,7 +71,7 @@ export default function TaskDetails() {
   const handleStatusChange = async () => {
     if (task && task.status !== "Completed") {
       try {
-        await UpdateTaskDataService(taskId!, {
+        await UpdateTaskData(taskId!, {
           status: "Completed",
         });
         window.location.reload();
@@ -84,7 +84,7 @@ export default function TaskDetails() {
   const handleSaveChanges = async () => {
     if (task) {
       try {
-        await UpdateTaskDataService(taskId!, {
+        await UpdateTaskData(taskId!, {
           title: editTitle,
           description: editDescription,
         });
@@ -109,10 +109,10 @@ export default function TaskDetails() {
     };
 
     try {
-      await AddTaskCommentService(newTaskComment);
+      await AddTaskComment(newTaskComment);
       setNewComment("");
 
-      const commentsResponse = await GetTaskCommentsByTaskService(taskId!);
+      const commentsResponse = await GetTaskCommentsByTask(taskId!);
       setComments(commentsResponse || []);
     } catch (error) {
       console.error("Failed to add comment");

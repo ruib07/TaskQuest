@@ -1,8 +1,8 @@
 import { toast } from "react-toastify";
-import { DeleteProjectService } from "../../services/Projects/deleteProject";
+import { DeleteProject } from "../../services/Projects/DELETE/deleteProject";
 import { DeleteProjectModalProps } from "../../types/Projects/deleteProjectModalProps";
 
-export default function DeleteProjectModal({
+export default function DeleteAProject({
   projectId,
   onClose,
   onConfirm,
@@ -27,7 +27,7 @@ export default function DeleteProjectModal({
 
   const handleDelete = () => {
     try {
-      DeleteProjectService(projectId);
+      DeleteProject(projectId);
       onConfirm();
       showSuccess();
       onClose();

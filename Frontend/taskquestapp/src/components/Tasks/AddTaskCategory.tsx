@@ -4,9 +4,9 @@ import { toast } from "react-toastify";
 import Img from "../../assets/TaskQuestLogo.png";
 import MainHeader from "../../layouts/Header/MainHeader";
 import { NewTaskList } from "../../types/Tasks/newTaskList";
-import { AddTaskListService } from "../../services/Tasks/addTaskList";
+import { AddTaskList } from "../../services/Tasks/POST/addTaskList";
 
-export default function AddTaskCategoryComponent() {
+export default function AddTaskCategory() {
   const [name, setName] = useState<string>("");
   const { projectId } = useParams<{ projectId: string }>();
   const navigate = useNavigate();
@@ -43,7 +43,7 @@ export default function AddTaskCategoryComponent() {
     };
 
     try {
-      await AddTaskListService(newTaskList);
+      await AddTaskList(newTaskList);
       showSuccess();
 
       setName("");
