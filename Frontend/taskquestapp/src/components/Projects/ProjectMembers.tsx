@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import MainHeader from "../../layouts/Header/MainHeader";
 import { GetProjectById } from "../../services/Projects/GET/getProjectById";
 import { Project } from "../../types/Projects/project";
@@ -13,6 +13,7 @@ export default function ProjectMembers() {
   const [projectMembers, setProjectMembers] = useState<ProjectMember[]>([]);
   const [userNames, setUserNames] = useState<{ [key: string]: string }>({});
   const [error, setError] = useState<string | null>(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchProjectData = async () => {
@@ -81,6 +82,16 @@ export default function ProjectMembers() {
                   {userNames[projectMember.user_id]}
                 </h3>
                 <p className="text-gray-500 mb-6">Role: {projectMember.role}</p>
+                <button
+                  onClick={() =>
+                    navigate(
+                      `/ProductivityMetrics/${projectId}/${projectMember.user_id}`
+                    )
+                  }
+                  className="text-white bg-blue-600 p-2 rounded-lg"
+                >
+                  See Productivity Metrics
+                </button>
               </div>
             ))}
           </div>

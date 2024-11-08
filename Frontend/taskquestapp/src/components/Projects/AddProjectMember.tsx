@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import Img from "../../assets/TaskQuestLogo.png";
 import MainHeader from "../../layouts/Header/MainHeader";
@@ -14,6 +14,7 @@ export default function AddNewProjectMember() {
   const [filteredUsers, setFilteredUsers] = useState(users);
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
   const { projectId } = useParams<{ projectId: string }>();
+  const location = useLocation();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -28,7 +29,11 @@ export default function AddNewProjectMember() {
     };
 
     fetchUsers();
-  }, []);
+
+    if (location.state?.userId) {
+      setUserId(location.state.userId);
+    }
+  }, [location.state]);
 
   const showSuccess = () => {
     toast.success("Project member created successfully!", {

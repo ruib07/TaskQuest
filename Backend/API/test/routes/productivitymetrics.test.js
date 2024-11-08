@@ -56,3 +56,35 @@ test('Test #63 - Get all productivity metrics by user ID', () => app.db('product
   .then((res) => {
     expect(res.status).toBe(200);
   }));
+
+test('Test #64 - Insert a new productivity metric', async () => {
+  await request(app).post(route)
+    .set('Authorization', `bearer ${user.token}`)
+    .send({
+      project_id: project.id,
+      user_id: user.id,
+      tasks_completed: 5,
+    })
+    .then((res) => {
+      expect(res.status).toBe(201);
+    });
+});
+
+describe('Productivity metric creation validation', () => {
+  const testTemplate = (newData, errorMessage) => request(app).post(route)
+    .set('Authorization', `bearer ${user.token}`)
+    .send({
+      project_id: project.id,
+      user_id: user.id,
+      tasks_completed: 5,
+      ...newData,
+    })
+    .then((res) => {
+      expect(res.status).toBe(400);
+      expect(res.body.error).toBe(errorMessage);
+    });
+
+  test('Test #65 - Insert a productivity metric without a project ID', () => testTemplate({ project_id: null }, 'Project ID is required!'));
+  test('Test #66 - Insert a productivity metric without a user ID', () => testTemplate({ user_id: null }, 'User ID is required!'));
+  test('Test #67 - Insert a productivity metric withou a completed tasks', () => testTemplate({ tasks_completed: null }, 'Completed tasks are required!'));
+});

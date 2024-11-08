@@ -27,6 +27,7 @@ import TaskDetails from "./components/Tasks/TaskDetails";
 import ScrollToTopButton from "./hooks/ScrollToTopButton";
 import GoToTopPage from "./hooks/GoToTopPage";
 import Footer from "./layouts/Footer/Footer";
+import UserProductivityMetrics from "./components/User/UserProductivityMetrics";
 
 export default function App() {
   return (
@@ -61,6 +62,10 @@ export default function App() {
             <Route
               path="/ChatMessages/:projectId"
               element={<ProjectMessages />}
+            />
+            <Route
+              path="/ProductivityMetrics/:projectId/:userId"
+              element={<UserProductivityMetrics />}
             />
             <Route
               path="/TaskCategories/:projectId"

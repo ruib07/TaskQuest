@@ -15,5 +15,11 @@ module.exports = (app) => {
       .catch((error) => next(error));
   });
 
+  router.post('/', (req, res, next) => {
+    app.services.productivitymetric.save(req.body)
+      .then((result) => res.status(201).json(result))
+      .catch((error) => next(error));
+  });
+
   return router;
 };
