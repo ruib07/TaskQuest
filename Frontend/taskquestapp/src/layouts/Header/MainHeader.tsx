@@ -22,6 +22,7 @@ export default function MainHeader() {
   const [userData, setUserData] = useState<{
     name: string;
   } | null>(null);
+  const [, setError] = useState<string | null>(null);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -32,7 +33,7 @@ export default function MainHeader() {
         const { name } = response?.data;
         setUserData({ name });
       } catch (error) {
-        console.error("Failed to load user data:", error);
+        setError(`Failed to load user data: ${error}`);
       }
     };
 

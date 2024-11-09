@@ -11,6 +11,7 @@ export default function AddNewProjectMember() {
   const [role, setRole] = useState<string>("");
   const [user_id, setUserId] = useState<string>("");
   const [users, setUsers] = useState<{ id: string; name: string }[]>([]);
+  const [, setError] = useState<string | null>(null);
   const [filteredUsers, setFilteredUsers] = useState(users);
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
   const { projectId } = useParams<{ projectId: string }>();
@@ -24,7 +25,7 @@ export default function AddNewProjectMember() {
         setUsers(response?.data || []);
         setFilteredUsers(response?.data || []);
       } catch (error) {
-        console.error("Error fetching users: ", error);
+        setError(`Error fetching users: ${error}`);
       }
     };
 

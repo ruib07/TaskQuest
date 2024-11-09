@@ -13,6 +13,7 @@ export default function UserProfile() {
   const [editName, setEditName] = useState("");
   const [editEmail, setEditEmail] = useState("");
   const [editPassword, setEditPassword] = useState("");
+  const [, setError] = useState<string | null>(null);
   const [visible, setVisible] = useState<boolean>(true);
 
   useEffect(() => {
@@ -23,7 +24,7 @@ export default function UserProfile() {
         setEditName(userResponse?.data.name);
         setEditEmail(userResponse?.data.email);
       } catch (error) {
-        console.error("Failed to load user details");
+        setError(`Failed to load user details: ${error}`);
       }
     };
 

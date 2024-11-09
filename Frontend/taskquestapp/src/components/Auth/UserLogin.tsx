@@ -41,7 +41,6 @@ export default function Authentication() {
 
     try {
       const res = await Login(login);
-      console.log(res);
       const token = res.token;
       const userid = res.user.id;
 
@@ -54,7 +53,6 @@ export default function Authentication() {
         showError();
       }
     } catch (error) {
-      console.log(error);
       showError();
     }
   };

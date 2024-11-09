@@ -8,6 +8,7 @@ import DeleteProjectModal from "./DeleteProjectModal";
 export default function ProjectDetails() {
   const { projectId } = useParams<{ projectId: string }>();
   const [project, setProject] = useState<Project | null>(null);
+  const [, setError] = useState<string | null>(null);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const navigate = useNavigate();
 
@@ -17,7 +18,7 @@ export default function ProjectDetails() {
         const response = await GetProjectById(projectId!);
         setProject(response?.data);
       } catch (error) {
-        console.error("Error fetching project:", error);
+        setError(`Error fetching project: ${error}`);
       }
     };
 

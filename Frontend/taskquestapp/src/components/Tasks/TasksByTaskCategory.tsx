@@ -19,8 +19,7 @@ export default function TasksByTaskList() {
         const taskResponse = await GetTasksByTaskListId(taskListId!);
         setTasks(taskResponse?.data);
       } catch (error) {
-        setError("Failed to load tasks");
-        console.error("Error fetching tasks:", error);
+        setError(`Failed to load tasks: ${error}`);
       }
     };
 

@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 export default function Dashboard() {
   const [user, setUser] = useState<{ name: string } | null>(null);
   const [tasks, setTasks] = useState<Task[]>([]);
+  const [, setError] = useState<string | null>(null);
   const [completedTasksCount, setCompletedTasksCount] = useState(0);
   const [totalTasksCount, setTotalTasksCount] = useState(0);
   const navigate = useNavigate();
@@ -33,7 +34,7 @@ export default function Dashboard() {
         );
         setTasks(pendingTasks);
       } catch (error) {
-        console.error("Failed to load user data:", error);
+        setError(`Failed to load user data: ${error}`);
       }
     };
 

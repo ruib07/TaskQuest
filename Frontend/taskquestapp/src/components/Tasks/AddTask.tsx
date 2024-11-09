@@ -14,6 +14,7 @@ export default function AddNewTask() {
   const [due_date, setDueDate] = useState<string>("");
   const [assigned_to, setAssignedTo] = useState<string>("");
   const [users, setUsers] = useState<{ id: string; name: string }[]>([]);
+  const [, setError] = useState<string | null>(null);
   const [filteredUsers, setFilteredUsers] = useState(users);
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
   const { taskListId } = useParams<{ taskListId: string }>();
@@ -26,7 +27,7 @@ export default function AddNewTask() {
         setUsers(response?.data || []);
         setFilteredUsers(response?.data || []);
       } catch (error) {
-        console.error("Error fetching users: ", error);
+        setError(`Error fetching users: ${error}`);
       }
     };
 

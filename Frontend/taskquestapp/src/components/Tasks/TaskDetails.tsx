@@ -15,6 +15,7 @@ export default function TaskDetails() {
   const [comments, setComments] = useState<TaskComment[]>([]);
   const [userNames, setUserNames] = useState<{ [key: string]: string }>({});
   const [newComment, setNewComment] = useState("");
+  const [, setError] = useState<string | null>(null);
   const [isEditing, setIsEditing] = useState(false);
   const [editTitle, setEditTitle] = useState("");
   const [editDescription, setEditDescription] = useState("");
@@ -27,7 +28,7 @@ export default function TaskDetails() {
         setEditTitle(taskResponse?.data.title);
         setEditDescription(taskResponse?.data.description);
       } catch (error) {
-        console.error("Failed to load task details");
+        setError("Failed to load task details");
       }
     };
 
@@ -40,7 +41,7 @@ export default function TaskDetails() {
         const commentsResponse = await GetTaskCommentsByTask(taskId!);
         setComments(commentsResponse || []);
       } catch (error) {
-        console.error("Failed to load comments");
+        setError("Failed to load comments");
       }
     };
 
@@ -76,7 +77,7 @@ export default function TaskDetails() {
         });
         window.location.reload();
       } catch (error) {
-        console.error("Failed to update task status");
+        setError("Failed to update task status");
       }
     }
   };
@@ -91,7 +92,7 @@ export default function TaskDetails() {
         window.location.reload();
         setIsEditing(false);
       } catch (error) {
-        console.error("Failed to save changes");
+        setError("Failed to save changes");
       }
     }
   };
@@ -115,7 +116,7 @@ export default function TaskDetails() {
       const commentsResponse = await GetTaskCommentsByTask(taskId!);
       setComments(commentsResponse || []);
     } catch (error) {
-      console.error("Failed to add comment");
+      setError("Failed to add comment");
     }
   };
 

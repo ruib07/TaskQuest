@@ -11,8 +11,13 @@ module.exports = (app) => {
     return app.db('productivity_metrics').insert(registerProductivityMetric, '*');
   };
 
+  const update = (id, productivityMetricRes) => app.db('productivity_metrics')
+    .where({ id })
+    .update(productivityMetricRes, '*');
+
   return {
     findAll,
     save,
+    update,
   };
 };

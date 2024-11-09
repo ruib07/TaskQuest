@@ -88,3 +88,20 @@ describe('Productivity metric creation validation', () => {
   test('Test #66 - Insert a productivity metric without a user ID', () => testTemplate({ user_id: null }, 'User ID is required!'));
   test('Test #67 - Insert a productivity metric withou a completed tasks', () => testTemplate({ tasks_completed: null }, 'Completed tasks are required!'));
 });
+
+test('Test #68 - Updating productivity metric data', () => app.db('productivity_metrics')
+  .insert({
+    project_id: project.id,
+    user_id: user.id,
+    tasks_completed: 5,
+  }, ['id'])
+  .then((productivityMetricRes) => request(app).put(`${route}/${productivityMetricRes[0].id}`)
+    .set('Authorization', `bearer ${user.token}`)
+    .send({
+      project_id: project.id,
+      user_id: user.id,
+      tasks_completed: 10,
+    }))
+  .then((res) => {
+    expect(res.status).toBe(200);
+  }));

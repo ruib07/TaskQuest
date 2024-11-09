@@ -10,6 +10,7 @@ export default function ProjectMessages() {
   const { projectId } = useParams<{ projectId: string }>();
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [newMessage, setNewMessage] = useState("");
+  const [, setError] = useState<string | null>(null);
   const [userNames, setUserNames] = useState<{ [key: string]: string }>({});
   const currentUserId = localStorage.getItem("id") || "";
   const navigate = useNavigate();
@@ -31,12 +32,12 @@ export default function ProjectMessages() {
               [message.sender_id]: userName,
             }));
           } catch (error) {
-            console.error("Failed to load user name: ", error);
+            setError(`Failed to load user name: ${error}`);
           }
         }
       });
     } catch (error) {
-      console.error("Failed to load chat messages:", error);
+      setError(`Failed to load chat messages: ${error}`);
     }
   }, [projectId, userNames]);
 
@@ -62,8 +63,7 @@ export default function ProjectMessages() {
       setNewMessage("");
       fetchMessages();
     } catch (error) {
-      console.error("Erro ao enviar mensagem:", error);
-      alert("Erro ao enviar mensagem. Tente novamente.");
+      setError(`Error sending message: ${error}`);
     }
   };
 

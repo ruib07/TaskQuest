@@ -1,7 +1,12 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState, useRef } from "react";
 import { useParams } from "react-router-dom";
 import { GetTaskListsByProjectId } from "../../services/Tasks/GET/getTaskListsByProjectId";
 import { GetTasksByTaskListId } from "../../services/Tasks/GET/getTasksByTaskListId";
+import { AddProductivityMetric } from "../../services/ProductivityMetrivs/POST/addProductivityMetric";
+import { UpdateProductivityMetricData } from "../../services/ProductivityMetrivs/PUT/updateProductivityMetricData";
+import { GetProductivityMetricByUser } from "../../services/ProductivityMetrivs/GET/getProductivityMetricByUser";
+import { ProductivityMetric } from "../../types/ProductivityMetrics/productivityMetric";
 import {
   Chart,
   BarController,
@@ -21,19 +26,46 @@ export default function UserProductivityMetrics() {
   const [completedTasksCount, setCompletedTasksCount] = useState<number>(0);
   const chartRef = useRef<HTMLCanvasElement | null>(null);
   const chartInstanceRef = useRef<Chart | null>(null);
+  const [, setMetricId] = useState<string | null>(null);
+  const [, setError] = useState<string | null>(null);
+
+  const saveOrUpdateProductivityMetric = async (count: number) => {
+    try {
+      const existingMetric = await GetProductivityMetricByUser(userId!);
+      const productivityMetricData = existingMetric?.data;
+
+      if (productivityMetricData) {
+        const currentCount = productivityMetricData.tasks_completed;
+        if (count > currentCount) {
+          await UpdateProductivityMetricData(productivityMetricData.id, {
+            tasks_completed: count,
+          });
+          setMetricId(productivityMetricData.id);
+        }
+      } else {
+        const newMetric: ProductivityMetric = {
+          projectId: projectId!,
+          userId: userId!,
+          tasks_completed: count,
+        };
+        const response = await AddProductivityMetric(newMetric);
+        setMetricId(response?.data.id);
+      }
+    } catch (error) {
+      setError(`Failed to save or update productivity metric: ${error}`);
+    }
+  };
 
   useEffect(() => {
     const fetchCompletedTasks = async () => {
       try {
         const taskListsResponse = await GetTaskListsByProjectId(projectId!);
-        console.log("task list response: ", taskListsResponse?.data);
         const taskLists = taskListsResponse?.data;
 
         let totalCompletedTasks = 0;
 
         for (const taskList of taskLists) {
           const tasksResponse = await GetTasksByTaskListId(taskList.id);
-          console.log("tasks response: ", tasksResponse?.data);
           const tasks = tasksResponse?.data;
 
           const userCompletedTasks = tasks.filter(
@@ -41,13 +73,14 @@ export default function UserProductivityMetrics() {
               task.assigned_to === userId && task.status === "Completed"
           );
 
-          console.log("completed tasks: ", userCompletedTasks);
           totalCompletedTasks += userCompletedTasks.length;
         }
 
         setCompletedTasksCount(totalCompletedTasks);
+
+        await saveOrUpdateProductivityMetric(totalCompletedTasks);
       } catch (error) {
-        console.error("Failed to fetch completed tasks", error);
+        setError(`Failed to fetch completed tasks: ${error}`);
       }
     };
 
@@ -63,7 +96,7 @@ export default function UserProductivityMetrics() {
       chartInstanceRef.current = new Chart(chartRef.current, {
         type: "bar",
         data: {
-          labels: ["Completed Tasks"],
+          labels: [`Completed Tasks: ${completedTasksCount}`],
           datasets: [
             {
               label: "Number of Tasks",
@@ -94,12 +127,9 @@ export default function UserProductivityMetrics() {
       <br />
       <br />
       <div className="container mx-auto p-8">
-        <h1 className="text-3xl font-bold text-blue-600 mb-8">
-          User Productivity Metrics
+        <h1 className="text-3xl text-center font-bold text-blue-600 mb-8">
+          Productivity Metrics
         </h1>
-        <p className="text-lg text-gray-600 mb-4">
-          Task completed: {completedTasksCount}
-        </p>
         <canvas
           ref={chartRef}
           id="productivityChart"
