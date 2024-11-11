@@ -11,7 +11,7 @@ import {
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import Icon from "../../assets/TaskQuestLogo.png";
 import { useNavigate, useLocation } from "react-router-dom";
-import { GetMyUser } from "../../services/Users/GET/getMyUserById";
+import { GetMyUser } from "../../services/userService";
 import { navigation } from "../../data/navigation";
 
 function classNames(...classes: any) {

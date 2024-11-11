@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Project } from "../../types/Projects/project";
 import MainHeader from "../../layouts/Header/MainHeader";
 import { useNavigate } from "react-router-dom";
-import { GetAllProjects } from "../../services/Projects/GET/getAllProjects";
+import { GetAllProjects } from "../../services/projectService";
 
 export default function Projects() {
   const [projects, setProjects] = useState<Project[]>([]);

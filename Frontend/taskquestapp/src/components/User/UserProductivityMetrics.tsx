@@ -1,11 +1,15 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState, useRef } from "react";
 import { useParams } from "react-router-dom";
-import { GetTaskListsByProjectId } from "../../services/Tasks/GET/getTaskListsByProjectId";
-import { GetTasksByTaskListId } from "../../services/Tasks/GET/getTasksByTaskListId";
-import { AddProductivityMetric } from "../../services/ProductivityMetrivs/POST/addProductivityMetric";
-import { UpdateProductivityMetricData } from "../../services/ProductivityMetrivs/PUT/updateProductivityMetricData";
-import { GetProductivityMetricByUser } from "../../services/ProductivityMetrivs/GET/getProductivityMetricByUser";
+import {
+  GetTaskListsByProjectId,
+  GetTasksByTaskListId,
+} from "../../services/taskService";
+import {
+  AddProductivityMetric,
+  UpdateProductivityMetricData,
+  GetProductivityMetricByUser,
+} from "../../services/productivityMetricService";
 import { ProductivityMetric } from "../../types/ProductivityMetrics/productivityMetric";
 import {
   Chart,

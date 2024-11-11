@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import { GetAllUsers } from "../services/Users/GET/getAllUsers";
+import { GetAllUsers } from "../services/userService";
 import { User } from "../types/Users/user";
 import MainHeader from "../layouts/Header/MainHeader";
 import { useNavigate } from "react-router-dom";
-import { GetAllProjects } from "../services/Projects/GET/getAllProjects";
+import { GetAllProjects } from "../services/projectService";
 
 export default function TeamMembers() {
   const [users, setUsers] = useState<User[]>([]);

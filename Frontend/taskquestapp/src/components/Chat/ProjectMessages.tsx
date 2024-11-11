@@ -1,10 +1,9 @@
 import { useCallback, useEffect, useState } from "react";
-import { GetMessagesByProject } from "../../services/Chat/GET/getChatMessagesByProject";
-import { AddMessage } from "../../services/Chat/POST/addChatMessage";
+import { GetMessagesByProject, AddMessage } from "../../services/chatService";
 import { ChatMessage } from "../../types/Chat/chatMessages";
 import { useNavigate, useParams } from "react-router-dom";
 import MainHeader from "../../layouts/Header/MainHeader";
-import { GetUserById } from "../../services/Users/GET/getUserById";
+import { GetUserById } from "../../services/userService";
 
 export default function ProjectMessages() {
   const { projectId } = useParams<{ projectId: string }>();

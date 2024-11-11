@@ -1,13 +1,15 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { GetTaskById } from "../../services/Tasks/GET/getTaskById";
-import { GetTaskCommentsByTask } from "../../services/Tasks/GET/getTaskCommentsByTask";
-import { GetUserById } from "../../services/Users/GET/getUserById";
+import {
+  GetTaskById,
+  GetTaskCommentsByTask,
+  AddTaskComment,
+  UpdateTaskData,
+} from "../../services/taskService";
+import { GetUserById } from "../../services/userService";
 import { Task } from "../../types/Tasks/task";
 import { TaskComment } from "../../types/Tasks/taskComments";
-import { AddTaskComment } from "../../services/Tasks/POST/addTaskComment";
 import MainHeader from "../../layouts/Header/MainHeader";
-import { UpdateTaskData } from "../../services/Tasks/PUT/updateTaskData";
 
 export default function TaskDetails() {
   const { taskId } = useParams<{ taskId: string }>();

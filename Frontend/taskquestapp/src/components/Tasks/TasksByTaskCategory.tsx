@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
-import { GetTasksByTaskListId } from "../../services/Tasks/GET/getTasksByTaskListId";
+import { GetTasksByTaskListId } from "../../services/taskService";
 import { Task } from "../../types/Tasks/task";
 import MainHeader from "../../layouts/Header/MainHeader";
 

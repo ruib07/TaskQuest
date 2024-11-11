@@ -3,8 +3,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import Img from "../../assets/TaskQuestLogo.png";
 import MainHeader from "../../layouts/Header/MainHeader";
-import { GetAllUsers } from "../../services/Users/GET/getAllUsers";
-import { AddTask } from "../../services/Tasks/POST/addTask";
+import { GetAllUsers } from "../../services/userService";
+import { AddTask } from "../../services/taskService";
 import { NewTask } from "../../types/Tasks/newTask";
 
 export default function AddNewTask() {

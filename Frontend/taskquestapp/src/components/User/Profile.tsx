@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-import { GetMyUser } from "../../services/Users/GET/getMyUserById";
-import { UpdateUserData } from "../../services/Users/PUT/updateUserData";
+import { GetMyUser, UpdateUserData } from "../../services/userService";
 import MainHeader from "../../layouts/Header/MainHeader";
 import { User } from "../../types/Users/user";
 import { toast } from "react-toastify";

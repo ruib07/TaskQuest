@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { AddProject } from "../../services/Projects/POST/addProject";
+import { AddProject } from "../../services/projectService";
 import Img from "../../assets/TaskQuestLogo.png";
 import MainHeader from "../../layouts/Header/MainHeader";
 import { NewProject } from "../../types/Projects/newProject";

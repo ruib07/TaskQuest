@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import MainHeader from "../../layouts/Header/MainHeader";
-import { GetProjectById } from "../../services/Projects/GET/getProjectById";
+import {
+  GetProjectById,
+  GetProjectMembersByProject,
+} from "../../services/projectService";
 import { Project } from "../../types/Projects/project";
-import { GetProjectMembersByProject } from "../../services/Projects/GET/getProjectMembersByProject";
-import { GetUserById } from "../../services/Users/GET/getUserById";
+import { GetUserById } from "../../services/userService";
 import { ProjectMember } from "../../types/Projects/projectMember";
 
 export default function ProjectMembers() {

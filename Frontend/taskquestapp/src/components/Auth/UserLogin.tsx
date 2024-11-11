@@ -5,7 +5,7 @@ import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { toast } from "react-toastify";
 import Img from "../../assets/TaskQuestLogo.png";
 import { UserLogin } from "../../types/Auth/login";
-import { Login } from "../../services/Auth/userLogin";
+import { Login } from "../../services/authenticationService";
 
 export default function Authentication() {
   const [email, setEmail] = useState<string>("");

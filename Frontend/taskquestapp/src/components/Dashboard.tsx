@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import MainHeader from "../layouts/Header/MainHeader";
-import { GetMyUser } from "../services/Users/GET/getMyUserById";
-import { GetTasksByUserId } from "../services/Tasks/GET/getTasksByUserId";
+import { GetMyUser } from "../services/userService";
+import { GetTasksByUserId } from "../services/taskService";
 import { Task } from "../types/Tasks/task";
 import { useNavigate } from "react-router-dom";
 
