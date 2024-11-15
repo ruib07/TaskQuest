@@ -6,6 +6,7 @@ import MainHeader from "../../layouts/Header/MainHeader";
 import { GetUserById } from "../../services/userService";
 import { AddNotification } from "../../services/notificationsService";
 import { Notification } from "../../types/Notifications/notification";
+import { GetProjectById } from "../../services/projectService";
 
 export default function ProjectMessages() {
   const { projectId } = useParams<{ projectId: string }>();
@@ -52,19 +53,25 @@ export default function ProjectMessages() {
       return;
     }
 
-    const messageData: ChatMessage = {
-      project_id: projectId!,
-      sender_id: currentUserId,
-      content: newMessage,
-      sent_at: new Date().toISOString(),
-    };
-
     try {
+      const userResponse = await GetUserById(currentUserId);
+      const userName = userResponse?.data?.name;
+
+      const projectResponse = await GetProjectById(projectId!);
+      const projectName = projectResponse?.data?.name;
+
+      const messageData: ChatMessage = {
+        project_id: projectId!,
+        sender_id: currentUserId,
+        content: newMessage,
+        sent_at: new Date().toISOString(),
+      };
+
       await AddMessage(messageData);
 
       const notification: Notification = {
         user_id: currentUserId,
-        content: `New Message from ${currentUserId} on project ${projectId}`,
+        content: `New Message from ${userName} on project ${projectName}`,
         read: false,
       };
 

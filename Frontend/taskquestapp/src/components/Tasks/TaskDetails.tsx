@@ -106,19 +106,22 @@ export default function TaskDetails() {
 
     const userId = localStorage.getItem("id");
 
-    const newTaskComment: TaskComment = {
-      task_id: taskId!,
-      user_id: userId!,
-      content: newComment,
-      created_at: new Date().toISOString(),
-    };
-
     try {
+      const userResponse = await GetUserById(userId!);
+      const userName = userResponse?.data?.name;
+
+      const newTaskComment: TaskComment = {
+        task_id: taskId!,
+        user_id: userId!,
+        content: newComment,
+        created_at: new Date().toISOString(),
+      };
+
       await AddTaskComment(newTaskComment);
 
       const notification: Notification = {
         user_id: userId!,
-        content: `New comment from ${userId} on task ${task?.title}`,
+        content: `New comment from ${userName} on task ${task?.title}`,
         read: false,
       };
 
