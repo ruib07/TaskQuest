@@ -10,6 +10,8 @@ import { GetUserById } from "../../services/userService";
 import { Task } from "../../types/Tasks/task";
 import { TaskComment } from "../../types/Tasks/taskComments";
 import MainHeader from "../../layouts/Header/MainHeader";
+import { Notification } from "../../types/Notifications/notification";
+import { AddNotification } from "../../services/notificationsService";
 
 export default function TaskDetails() {
   const { taskId } = useParams<{ taskId: string }>();
@@ -113,6 +115,14 @@ export default function TaskDetails() {
 
     try {
       await AddTaskComment(newTaskComment);
+
+      const notification: Notification = {
+        user_id: userId!,
+        content: `New comment from ${userId} on task ${task?.title}`,
+        read: false,
+      };
+
+      await AddNotification(notification);
       setNewComment("");
 
       const commentsResponse = await GetTaskCommentsByTask(taskId!);

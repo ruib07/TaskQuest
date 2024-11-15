@@ -4,6 +4,8 @@ import { ChatMessage } from "../../types/Chat/chatMessages";
 import { useNavigate, useParams } from "react-router-dom";
 import MainHeader from "../../layouts/Header/MainHeader";
 import { GetUserById } from "../../services/userService";
+import { AddNotification } from "../../services/notificationsService";
+import { Notification } from "../../types/Notifications/notification";
 
 export default function ProjectMessages() {
   const { projectId } = useParams<{ projectId: string }>();
@@ -59,6 +61,14 @@ export default function ProjectMessages() {
 
     try {
       await AddMessage(messageData);
+
+      const notification: Notification = {
+        user_id: currentUserId,
+        content: `New Message from ${currentUserId} on project ${projectId}`,
+        read: false,
+      };
+
+      await AddNotification(notification);
       setNewMessage("");
       fetchMessages();
     } catch (error) {
