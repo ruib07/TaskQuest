@@ -8,11 +8,12 @@ import {
   MenuItem,
   MenuItems,
 } from "@headlessui/react";
-import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import Icon from "../../assets/TaskQuestLogo.png";
 import { useNavigate, useLocation } from "react-router-dom";
 import { GetMyUser } from "../../services/userService";
 import { navigation } from "../../data/navigation";
+import NotificationsDropdown from "../../components/Notifications/Notifications";
 
 function classNames(...classes: any) {
   return classes.filter(Boolean).join(" ");
@@ -109,7 +110,7 @@ export default function MainHeader() {
             >
               <span className="absolute -inset-1.5" />
               <span className="sr-only">View notifications</span>
-              <BellIcon aria-hidden="true" className="h-6 w-6" />
+              <NotificationsDropdown />
             </button>
             {userData ? (
               <Menu as="div" className="relative ml-3">

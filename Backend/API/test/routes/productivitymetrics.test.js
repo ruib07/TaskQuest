@@ -33,7 +33,7 @@ beforeAll(async () => {
   project = { ...projectRegistration[0] };
 });
 
-test('Test #62 - Get all productivity metrics by project ID', () => app.db('productivity_metrics')
+test('Test #66 - Get all productivity metrics by project ID', () => app.db('productivity_metrics')
   .insert({
     project_id: project.id,
     user_id: user.id,
@@ -45,7 +45,7 @@ test('Test #62 - Get all productivity metrics by project ID', () => app.db('prod
     expect(res.status).toBe(200);
   }));
 
-test('Test #63 - Get all productivity metrics by user ID', () => app.db('productivity_metrics')
+test('Test #67 - Get all productivity metrics by user ID', () => app.db('productivity_metrics')
   .insert({
     project_id: project.id,
     user_id: user.id,
@@ -57,7 +57,7 @@ test('Test #63 - Get all productivity metrics by user ID', () => app.db('product
     expect(res.status).toBe(200);
   }));
 
-test('Test #64 - Insert a new productivity metric', async () => {
+test('Test #68 - Insert a new productivity metric', async () => {
   await request(app).post(route)
     .set('Authorization', `bearer ${user.token}`)
     .send({
@@ -84,12 +84,12 @@ describe('Productivity metric creation validation', () => {
       expect(res.body.error).toBe(errorMessage);
     });
 
-  test('Test #65 - Insert a productivity metric without a project ID', () => testTemplate({ project_id: null }, 'Project ID is required!'));
-  test('Test #66 - Insert a productivity metric without a user ID', () => testTemplate({ user_id: null }, 'User ID is required!'));
-  test('Test #67 - Insert a productivity metric withou a completed tasks', () => testTemplate({ tasks_completed: null }, 'Completed tasks are required!'));
+  test('Test #69 - Insert a productivity metric without a project ID', () => testTemplate({ project_id: null }, 'Project ID is required!'));
+  test('Test #70 - Insert a productivity metric without a user ID', () => testTemplate({ user_id: null }, 'User ID is required!'));
+  test('Test #71 - Insert a productivity metric withou a completed tasks', () => testTemplate({ tasks_completed: null }, 'Completed tasks are required!'));
 });
 
-test('Test #68 - Updating productivity metric data', () => app.db('productivity_metrics')
+test('Test #72 - Updating productivity metric data', () => app.db('productivity_metrics')
   .insert({
     project_id: project.id,
     user_id: user.id,

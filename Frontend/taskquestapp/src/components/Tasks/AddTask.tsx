@@ -5,7 +5,9 @@ import Img from "../../assets/TaskQuestLogo.png";
 import MainHeader from "../../layouts/Header/MainHeader";
 import { GetAllUsers } from "../../services/userService";
 import { AddTask } from "../../services/taskService";
+import { AddNotification } from "../../services/notificationsService";
 import { NewTask } from "../../types/Tasks/newTask";
+import { Notification } from "../../types/Notifications/notification";
 
 export default function AddNewTask() {
   const [title, setTitle] = useState<string>("");
@@ -71,6 +73,14 @@ export default function AddNewTask() {
 
     try {
       await AddTask(newTask);
+
+      const notification: Notification = {
+        user_id: assigned_to,
+        content: `New task assigned: ${title}`,
+        read: false,
+      };
+
+      await AddNotification(notification);
       showSuccess();
 
       setTitle("");
