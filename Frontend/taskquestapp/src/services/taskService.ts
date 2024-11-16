@@ -1,7 +1,4 @@
-import { NewTask } from "../types/Tasks/newTask";
-import { NewTaskList } from "../types/Tasks/newTaskList";
-import { Task } from "../types/Tasks/task";
-import { TaskComment } from "../types/Tasks/taskComments";
+import { Task, NewTask, NewTaskList, TaskComment } from "../types/task";
 import { GetAuthHeaders } from "./getAuthHeaders";
 import axios from "axios";
 

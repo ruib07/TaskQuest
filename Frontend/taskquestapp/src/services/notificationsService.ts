@@ -1,4 +1,4 @@
-import { Notification } from "../types/Notifications/notification";
+import { Notification } from "../types/notification";
 import { GetAuthHeaders } from "./getAuthHeaders";
 import axios from "axios";
 

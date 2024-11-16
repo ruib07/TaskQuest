@@ -1,5 +1,5 @@
 import { GetAuthHeaders } from "./getAuthHeaders";
-import { User } from "../types/Users/user";
+import { User } from "../types/user";
 import axios from "axios";
 
 const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;

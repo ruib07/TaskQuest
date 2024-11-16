@@ -1,11 +1,11 @@
 import { useCallback, useEffect, useState } from "react";
 import { GetMessagesByProject, AddMessage } from "../../services/chatService";
-import { ChatMessage } from "../../types/Chat/chatMessages";
+import { ChatMessage } from "../../types/chatMessages";
 import { useNavigate, useParams } from "react-router-dom";
 import MainHeader from "../../layouts/Header/MainHeader";
 import { GetUserById } from "../../services/userService";
 import { AddNotification } from "../../services/notificationsService";
-import { Notification } from "../../types/Notifications/notification";
+import { Notification } from "../../types/notification";
 import { GetProjectById } from "../../services/projectService";
 
 export default function ProjectMessages() {

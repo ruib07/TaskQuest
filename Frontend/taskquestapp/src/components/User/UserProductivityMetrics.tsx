@@ -10,7 +10,7 @@ import {
   UpdateProductivityMetricData,
   GetProductivityMetricByUser,
 } from "../../services/productivityMetricService";
-import { ProductivityMetric } from "../../types/ProductivityMetrics/productivityMetric";
+import { ProductivityMetric } from "../../types/productivityMetric";
 import {
   Chart,
   BarController,

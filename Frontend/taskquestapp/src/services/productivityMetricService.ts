@@ -1,4 +1,4 @@
-import { ProductivityMetric } from "../types/ProductivityMetrics/productivityMetric";
+import { ProductivityMetric } from "../types/productivityMetric";
 import { GetAuthHeaders } from "./getAuthHeaders";
 import axios from "axios";
 

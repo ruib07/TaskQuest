@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import Img from "../../assets/TaskQuestLogo.png";
 import MainHeader from "../../layouts/Header/MainHeader";
-import { NewTaskList } from "../../types/Tasks/newTaskList";
+import { NewTaskList } from "../../types/task";
 import { AddTaskList } from "../../services/taskService";
 
 export default function AddTaskCategory() {

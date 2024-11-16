@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import MainHeader from "../layouts/Header/MainHeader";
 import { GetMyUser } from "../services/userService";
 import { GetTasksByUserId } from "../services/taskService";
-import { Task } from "../types/Tasks/task";
+import { Task } from "../types/task";
 import { useNavigate } from "react-router-dom";
 
 export default function Dashboard() {

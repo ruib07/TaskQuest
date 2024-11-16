@@ -1,5 +1,4 @@
-import { UserRegistration } from "../types/Auth/registration";
-import { UserLogin } from "../types/Auth/login";
+import { UserRegistration, UserLogin } from "../types/authentication";
 import axios from "axios";
 
 const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;

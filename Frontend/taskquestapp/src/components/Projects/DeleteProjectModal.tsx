@@ -1,6 +1,6 @@
 import { toast } from "react-toastify";
 import { DeleteProject } from "../../services/projectService";
-import { DeleteProjectModalProps } from "../../types/Projects/deleteProjectModalProps";
+import { DeleteProjectModalProps } from "../../types/project";
 
 export default function DeleteAProject({
   projectId,

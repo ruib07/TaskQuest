@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { GetMyUser, UpdateUserData } from "../../services/userService";
 import MainHeader from "../../layouts/Header/MainHeader";
-import { User } from "../../types/Users/user";
+import { User } from "../../types/user";
 import { toast } from "react-toastify";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";

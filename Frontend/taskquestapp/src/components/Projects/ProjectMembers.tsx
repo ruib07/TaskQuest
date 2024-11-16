@@ -5,9 +5,8 @@ import {
   GetProjectById,
   GetProjectMembersByProject,
 } from "../../services/projectService";
-import { Project } from "../../types/Projects/project";
+import { Project, ProjectMember } from "../../types/project";
 import { GetUserById } from "../../services/userService";
-import { ProjectMember } from "../../types/Projects/projectMember";
 
 export default function ProjectMembers() {
   const { projectId } = useParams<{ projectId: string }>();

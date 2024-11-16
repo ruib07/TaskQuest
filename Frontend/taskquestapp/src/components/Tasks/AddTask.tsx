@@ -6,8 +6,8 @@ import MainHeader from "../../layouts/Header/MainHeader";
 import { GetAllUsers } from "../../services/userService";
 import { AddTask } from "../../services/taskService";
 import { AddNotification } from "../../services/notificationsService";
-import { NewTask } from "../../types/Tasks/newTask";
-import { Notification } from "../../types/Notifications/notification";
+import { NewTask } from "../../types/task";
+import { Notification } from "../../types/notification";
 
 export default function AddNewTask() {
   const [title, setTitle] = useState<string>("");

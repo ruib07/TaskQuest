@@ -7,10 +7,9 @@ import {
   UpdateTaskData,
 } from "../../services/taskService";
 import { GetUserById } from "../../services/userService";
-import { Task } from "../../types/Tasks/task";
-import { TaskComment } from "../../types/Tasks/taskComments";
+import { Task, TaskComment } from "../../types/task";
 import MainHeader from "../../layouts/Header/MainHeader";
-import { Notification } from "../../types/Notifications/notification";
+import { Notification } from "../../types/notification";
 import { AddNotification } from "../../services/notificationsService";
 
 export default function TaskDetails() {

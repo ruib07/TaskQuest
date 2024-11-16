@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import Img from "../../assets/TaskQuestLogo.png";
 import MainHeader from "../../layouts/Header/MainHeader";
 import { GetAllUsers } from "../../services/userService";
-import { ProjectMember } from "../../types/Projects/projectMember";
+import { ProjectMember } from "../../types/project";
 import { AddProjectMember } from "../../services/projectService";
 
 export default function AddNewProjectMember() {

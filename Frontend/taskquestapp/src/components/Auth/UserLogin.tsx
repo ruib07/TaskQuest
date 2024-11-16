@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { toast } from "react-toastify";
 import Img from "../../assets/TaskQuestLogo.png";
-import { UserLogin } from "../../types/Auth/login";
+import { UserLogin } from "../../types/authentication";
 import { Login } from "../../services/authenticationService";
 
 export default function Authentication() {

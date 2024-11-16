@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { GetTaskListsByProjectId } from "../../services/taskService";
-import { TaskList } from "../../types/Tasks/taskList";
+import { TaskList } from "../../types/task";
 import MainHeader from "../../layouts/Header/MainHeader";
 import { GetProjectById } from "../../services/projectService";
-import { Project } from "../../types/Projects/project";
+import { Project } from "../../types/project";
 
 export default function TaskCategories() {
   const { projectId } = useParams<{ projectId: string }>();

@@ -1,5 +1,4 @@
-import { NewProject } from "../types/Projects/newProject";
-import { ProjectMember } from "../types/Projects/projectMember";
+import { NewProject, ProjectMember } from "../types/project";
 import { GetAuthHeaders } from "./getAuthHeaders";
 import axios from "axios";
 

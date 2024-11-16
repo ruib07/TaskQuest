@@ -1,4 +1,4 @@
-import { ChatMessage } from "../types/Chat/chatMessages";
+import { ChatMessage } from "../types/chatMessages";
 import { GetAuthHeaders } from "./getAuthHeaders";
 import axios from "axios";
 

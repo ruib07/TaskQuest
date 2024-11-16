@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import { AddProject } from "../../services/projectService";
 import Img from "../../assets/TaskQuestLogo.png";
 import MainHeader from "../../layouts/Header/MainHeader";
-import { NewProject } from "../../types/Projects/newProject";
+import { NewProject } from "../../types/project";
 
 export default function AddNewProject() {
   const [name, setName] = useState<string>("");
