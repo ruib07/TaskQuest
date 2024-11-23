@@ -58,9 +58,6 @@ Notifications:
 Productivity Metrics for a member on a project Page:
 <img width="1706" alt="Screenshot 2024-04-28 at 15 00 38" src="https://github.com/user-attachments/assets/cea0c089-6f24-4a93-82a4-077e8616191e">
 
-Notifications:
-<img width="1706" alt="Screenshot 2024-04-28 at 15 00 38" src="https://github.com/user-attachments/assets/9be3d409-a376-416e-8c8b-68dfe23dfe6d">
-
 User Profile Page:
 <img width="1706" alt="Screenshot 2024-04-28 at 14 58 40" src="https://github.com/user-attachments/assets/637bfd6f-07c3-44ad-989c-4478dba90650">
 
