@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { GetMyUser, UpdateUserData } from "../../services/userService";
+import { GetUserById, UpdateUserData } from "../../services/userService";
 import MainHeader from "../../layouts/Header/MainHeader";
 import { User } from "../../types/user";
 import { toast } from "react-toastify";
@@ -18,7 +18,8 @@ export default function UserProfile() {
   useEffect(() => {
     const fetchUserDetails = async () => {
       try {
-        const userResponse = await GetMyUser();
+        const userId = localStorage.getItem("id");
+        const userResponse = await GetUserById(userId!);
         setUser(userResponse?.data);
         setEditName(userResponse?.data.name);
         setEditEmail(userResponse?.data.email);

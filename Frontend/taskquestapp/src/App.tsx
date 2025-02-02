@@ -2,13 +2,13 @@ import { ToastContainer } from "react-toastify";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 
-import UserRegistration from "./components/Auth/UserRegistration";
-import Authentication from "./components/Auth/UserLogin";
-import UserProfile from "./components/User/Profile";
+import GoToTopPage from "./components/Button/GoToTopPage";
+import ScrollToTopButton from "./components/Button/ScrollToTopButton";
 
-import Dashboard from "./components/Dashboard";
-import TeamMembers from "./components/Team";
-import NotFound from "./components/404";
+import UserRegistration from "./pages/UserRegistration";
+import Authentication from "./pages/UserLogin";
+import UserProfile from "./components/User/Profile";
+import UserProductivityMetrics from "./components/User/UserProductivityMetrics";
 
 import Projects from "./components/Projects/Projects";
 import AddProject from "./components/Projects/AddProject";
@@ -24,10 +24,10 @@ import TasksByUser from "./components/Tasks/TasksByUser";
 import AddTask from "./components/Tasks/AddTask";
 import TaskDetails from "./components/Tasks/TaskDetails";
 
-import ScrollToTopButton from "./hooks/ScrollToTopButton";
-import GoToTopPage from "./hooks/GoToTopPage";
+import Dashboard from "./pages/Dashboard";
+import TeamMembers from "./pages/Team";
+import NotFound from "./pages/404";
 import Footer from "./layouts/Footer/Footer";
-import UserProductivityMetrics from "./components/User/UserProductivityMetrics";
 
 export default function App() {
   return (

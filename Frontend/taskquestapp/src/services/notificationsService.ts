@@ -1,79 +1,19 @@
 import { Notification } from "../types/notification";
-import { GetAuthHeaders } from "./getAuthHeaders";
-import axios from "axios";
-
-const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
-const API_VERSION = process.env.REACT_APP_API_VERSION;
-const token = GetAuthHeaders();
+import apiRequest from "./helpers/apiService";
 
 export const GetNotificationsByUser = async () => {
-  if (!token) return;
-
-  try {
-    const userId = localStorage.getItem("id");
-
-    const response = await axios.get(
-      `${API_BASE_URL}/${API_VERSION}/notifications/${userId}`,
-      {
-        headers: token,
-      }
-    );
-
-    return response;
-  } catch (error) {
-    throw new Error("Failed to retrieve all notifications by user ID!");
-  }
+  const userId = localStorage.getItem("id");
+  return await apiRequest("GET", `notifications/${userId}`);
 };
 
 export const AddNotification = async (newNotification: Notification) => {
-  if (!token) return;
-
-  try {
-    const response = await axios.post(
-      `${API_BASE_URL}/${API_VERSION}/notifications`,
-      newNotification,
-      {
-        headers: token,
-      }
-    );
-
-    return response;
-  } catch (error) {
-    throw new Error("Failed to add new notification!");
-  }
+  return await apiRequest("POST", "notifications", newNotification);
 };
 
 export const MarkAsRead = async (id: string) => {
-  if (!token) return;
-
-  try {
-    const response = await axios.put(
-      `${API_BASE_URL}/${API_VERSION}/notifications/${id}`,
-      { read: true },
-      {
-        headers: token,
-      }
-    );
-
-    return response;
-  } catch (error) {
-    throw new Error("Failed to mark as read!");
-  }
+  return await apiRequest("PUT", `notifications/${id}`, { read: true });
 };
 
 export const DeleteNotification = async (id: string) => {
-  if (!token) return;
-
-  try {
-    const response = await axios.delete(
-      `${API_BASE_URL}/${API_VERSION}/notifications/${id}`,
-      {
-        headers: token,
-      }
-    );
-
-    return response;
-  } catch (error) {
-    throw new Error("Failed to delete notification!");
-  }
+  return await apiRequest("DELETE", `notifications/${id}`);
 };

@@ -1,169 +1,42 @@
-import { Task, NewTask, NewTaskList, TaskComment } from "../types/task";
-import { GetAuthHeaders } from "./getAuthHeaders";
-import axios from "axios";
+import { NewTask, NewTaskList, Task, TaskComment } from "../types/task";
+import apiRequest from "./helpers/apiService";
 
-const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
-const API_VERSION = process.env.REACT_APP_API_VERSION;
-const token = GetAuthHeaders();
-
-export const GetTaskById = (taskId: string) => {
-  if (!token) return;
-
-  try {
-    const response = axios.get(
-      `${API_BASE_URL}/${API_VERSION}/tasks/byId/${taskId}`,
-      {
-        headers: token,
-      }
-    );
-
-    return response;
-  } catch (error) {
-    throw new Error("Failed to retrieve task by ID!");
-  }
+export const GetTaskById = async (taskId: string) => {
+  return await apiRequest("GET", `tasks/byId/${taskId}`);
 };
 
 export const GetTaskCommentsByTask = async (taskId: string) => {
-  if (!token) return;
-
-  try {
-    const response = await axios.get(
-      `${API_BASE_URL}/${API_VERSION}/taskcomments/${taskId}`,
-      {
-        headers: token,
-      }
-    );
-
-    return response.data;
-  } catch (error) {
-    throw new Error("Failed to retrieve task comments by task!");
-  }
+  return await apiRequest("GET", `taskcomments/${taskId}`);
 };
 
-export const GetTaskListsByProjectId = (projectId: string) => {
-  if (!token) return;
-
-  try {
-    const response = axios.get(
-      `${API_BASE_URL}/${API_VERSION}/tasklists/${projectId}`,
-      {
-        headers: token,
-      }
-    );
-
-    return response;
-  } catch (error) {
-    throw new Error("Failed to retrieve all tasks list by project ID!");
-  }
+export const GetTaskListsByProjectId = async (projectId: string) => {
+  return await apiRequest("GET", `tasklists/${projectId}`);
 };
 
-export const GetTasksByTaskListId = (taskListId: string) => {
-  if (!token) return;
-
-  try {
-    const response = axios.get(
-      `${API_BASE_URL}/${API_VERSION}/tasks/${taskListId}`,
-      {
-        headers: token,
-      }
-    );
-
-    return response;
-  } catch (error) {
-    throw new Error("Failed to retrieve tasks by task list ID!");
-  }
+export const GetTasksByTaskListId = async (taskListId: string) => {
+  return await apiRequest("GET", `tasks/${taskListId}`);
 };
 
 export const GetTasksByUserId = async () => {
   const userId = localStorage.getItem("id");
-
-  if (!token) return;
-
-  try {
-    const response = await axios.get(
-      `${API_BASE_URL}/${API_VERSION}/tasks/user/${userId}`,
-      {
-        headers: token,
-      }
-    );
-
-    return response;
-  } catch (error) {
-    throw new Error("Failed to retrieve tasks by user ID!");
-  }
+  return await apiRequest("GET", `tasks/user/${userId}`);
 };
 
 export const AddTask = async (newTask: NewTask) => {
-  if (!token) return;
-
-  try {
-    const response = await axios.post(
-      `${API_BASE_URL}/${API_VERSION}/tasks`,
-      newTask,
-      {
-        headers: token,
-      }
-    );
-
-    return response;
-  } catch (error) {
-    throw new Error("Failed to create a new task!");
-  }
+  return await apiRequest("POST", "tasks", newTask);
 };
 
 export const AddTaskComment = async (newTaskComment: TaskComment) => {
-  if (!token) return;
-
-  try {
-    const response = await axios.post(
-      `${API_BASE_URL}/${API_VERSION}/taskcomments`,
-      newTaskComment,
-      {
-        headers: token,
-      }
-    );
-
-    return response;
-  } catch (error) {
-    throw new Error("Failed to add a task comment!");
-  }
+  return await apiRequest("POST", "taskcomments", newTaskComment);
 };
 
 export const AddTaskList = async (newTaskList: NewTaskList) => {
-  if (!token) return;
-
-  try {
-    const response = await axios.post(
-      `${API_BASE_URL}/${API_VERSION}/tasklists`,
-      newTaskList,
-      {
-        headers: token,
-      }
-    );
-
-    return response;
-  } catch (error) {
-    throw new Error("Failed to add a new task category!");
-  }
+  return await apiRequest("POST", "tasklists", newTaskList);
 };
 
 export const UpdateTaskData = async (
   taskId: string,
   newTaskData: Partial<Task>
 ) => {
-  if (!token) return;
-
-  try {
-    const response = await axios.put(
-      `${API_BASE_URL}/${API_VERSION}/tasks/${taskId}`,
-      newTaskData,
-      {
-        headers: token,
-      }
-    );
-
-    return response;
-  } catch (error) {
-    throw new Error("Failed to update task data!");
-  }
+  return await apiRequest("PUT", `tasks/${taskId}`, newTaskData);
 };

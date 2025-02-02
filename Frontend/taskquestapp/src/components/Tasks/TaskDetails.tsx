@@ -42,7 +42,7 @@ export default function TaskDetails() {
     const fetchComments = async () => {
       try {
         const commentsResponse = await GetTaskCommentsByTask(taskId!);
-        setComments(commentsResponse || []);
+        setComments(commentsResponse.data || []);
       } catch (error) {
         setError("Failed to load comments");
       }
@@ -128,7 +128,7 @@ export default function TaskDetails() {
       setNewComment("");
 
       const commentsResponse = await GetTaskCommentsByTask(taskId!);
-      setComments(commentsResponse || []);
+      setComments(commentsResponse.data || []);
     } catch (error) {
       setError("Failed to add comment");
     }

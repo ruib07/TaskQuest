@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import MainHeader from "../layouts/Header/MainHeader";
-import { GetMyUser } from "../services/userService";
 import { GetTasksByUserId } from "../services/taskService";
 import { Task } from "../types/task";
 import { useNavigate } from "react-router-dom";
+import { GetUserById } from "../services/userService";
 
 export default function Dashboard() {
   const [user, setUser] = useState<{ name: string } | null>(null);
@@ -16,7 +16,8 @@ export default function Dashboard() {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const response = await GetMyUser();
+        const userId = localStorage.getItem("id");
+        const response = await GetUserById(userId!);
         const { name } = response?.data;
         setUser({ name });
 

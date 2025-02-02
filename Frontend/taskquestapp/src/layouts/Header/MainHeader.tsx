@@ -11,9 +11,9 @@ import {
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import Icon from "../../assets/TaskQuestLogo.png";
 import { useNavigate, useLocation } from "react-router-dom";
-import { GetMyUser } from "../../services/userService";
-import { navigation } from "../../data/navigation";
+import { navigation } from "./navigation";
 import NotificationsDropdown from "../../components/Notifications/Notifications";
+import { GetUserById } from "../../services/userService";
 
 function classNames(...classes: any) {
   return classes.filter(Boolean).join(" ");
@@ -30,7 +30,8 @@ export default function MainHeader() {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await GetMyUser();
+        const userId = localStorage.getItem("id");
+        const response = await GetUserById(userId!);
         const { name } = response?.data;
         setUserData({ name });
       } catch (error) {
